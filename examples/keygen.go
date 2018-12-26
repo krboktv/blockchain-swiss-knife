@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/hex"
 	"fmt"
-	"../ethereum"
-	"../bitcoin"
+	"github.com/krboktv/blockchain-swiss-knife/ethereum"
+	"github.com/krboktv/blockchain-swiss-knife/bitcoin"
 	"github.com/btcsuite/btcutil/base58"
 )
 
