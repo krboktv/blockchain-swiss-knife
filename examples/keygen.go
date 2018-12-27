@@ -1,12 +1,12 @@
 package main
 
 import (
-	"../ripple"
 	"encoding/hex"
 	"fmt"
 	"github.com/krboktv/blockchain-swiss-knife/bitcoin"
 	"github.com/krboktv/blockchain-swiss-knife/dash"
 	"github.com/krboktv/blockchain-swiss-knife/ethereum"
+	"github.com/krboktv/blockchain-swiss-knife/ripple"
 )
 
 func main() {

@@ -3,9 +3,9 @@ package utils
 import (
 	"crypto"
 	"crypto/rand"
-	"github.com/spearson78/guardian/encoding/base58"
 	eth "github.com/ethereum/go-ethereum/crypto"
 	"github.com/haltingstate/secp256k1-go"
+	"github.com/spearson78/guardian/encoding/base58"
 	"github.com/vsergeev/btckeygenie/btckey"
 )
 
