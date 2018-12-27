@@ -6,11 +6,11 @@ import (
 	"time"
 
 	"encoding/base64"
-	"github.com/stellar/go/protocols/horizon/base"
-	"github.com/stellar/go/strkey"
-	"github.com/stellar/go/support/errors"
-	"github.com/stellar/go/support/render/hal"
-	"github.com/stellar/go/xdr"
+	"github.com/krboktv/blockchain-swiss-knife/stellar/protocols/horizon/base"
+	"github.com/krboktv/blockchain-swiss-knife/stellar/strkey"
+	"github.com/krboktv/blockchain-swiss-knife/stellar/support/errors"
+	"github.com/krboktv/blockchain-swiss-knife/stellar/support/render/hal"
+	"github.com/krboktv/blockchain-swiss-knife/stellar/xdr"
 )
 
 // KeyTypeNames maps from strkey version bytes into json string values to use in

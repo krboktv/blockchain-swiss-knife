@@ -12,7 +12,7 @@ import (
 	"regexp"
 	"strconv"
 
-	"github.com/stellar/go/xdr"
+	"github.com/krboktv/blockchain-swiss-knife/stellar/xdr"
 )
 
 var (

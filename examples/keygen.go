@@ -13,14 +13,14 @@ import (
 
 func main() {
 
-	eth()
-	fmt.Print("\n")
-	btc()
-	fmt.Print("\n")
-	dash_()
-	fmt.Print("\n")
-	xrp()
-	fmt.Println("\n")
+	//eth()
+	//fmt.Print("\n")
+	//btc()
+	//fmt.Print("\n")
+	//dash_()
+	//fmt.Print("\n")
+	//xrp()
+	//fmt.Println("\n")
 	stellar()
 }
 

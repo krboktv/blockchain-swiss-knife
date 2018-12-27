@@ -14,8 +14,8 @@ import (
 	"regexp"
 	"strconv"
 
-	"github.com/stellar/go/support/errors"
-	"github.com/stellar/go/xdr"
+	"github.com/krboktv/blockchain-swiss-knife/stellar/errors"
+	"github.com/krboktv/blockchain-swiss-knife/stellar/xdr"
 )
 
 // One is the value of one whole unit of currency. Stellar uses 7 fixed digits
