@@ -108,11 +108,10 @@ func stellar(){
 		os.Exit(1)
 	}
 
-	fmt.Print("Public key: ")
-	fmt.Print(x.Address)
-	fmt.Println()
-	fmt.Print("Private key: ")
+	fmt.Print("Seed phrase: ")
 	fmt.Println(x.Seed)
+	fmt.Print("Address: ")
+	fmt.Println(x.Address)
 	fmt.Println("---Stellar---")
 
 
