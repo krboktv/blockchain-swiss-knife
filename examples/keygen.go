@@ -1,9 +1,9 @@
 package main
 
 import (
+	"../ripple"
 	"encoding/hex"
 	"fmt"
-	"github.com/btcsuite/btcutil/base58"
 	"github.com/krboktv/blockchain-swiss-knife/bitcoin"
 	"github.com/krboktv/blockchain-swiss-knife/dash"
 	"github.com/krboktv/blockchain-swiss-knife/ethereum"
@@ -16,6 +16,8 @@ func main() {
 	btc()
 	fmt.Print("\n")
 	dash_()
+	fmt.Print("\n")
+	xrp()
 }
 
 func eth() {
@@ -37,7 +39,7 @@ func eth() {
 func btc() {
 	privateKey, _ := bitcoin.GenerateKey()
 	publicKey := bitcoin.GetPublicKey(privateKey)
-	address := bitcoin.GetAddress(privateKey)
+	address, _ := bitcoin.GetAddress(privateKey)
 
 	fmt.Print("Bitcoin Secret Key: \n")
 	fmt.Print(hex.EncodeToString(privateKey))
@@ -46,14 +48,14 @@ func btc() {
 	fmt.Print(hex.EncodeToString(publicKey))
 	fmt.Print("\n")
 	fmt.Print("Bitcoin Address: \n")
-	fmt.Print(base58.Encode(address))
+	fmt.Print(string(address))
 	fmt.Print("\n")
 }
 
 func dash_() {
 	privateKey, _ := dash.GenerateKey()
 	publicKey := dash.GetPublicKey(privateKey)
-	address := dash.GetAddress(privateKey)
+	address, _ := dash.GetAddress(privateKey)
 
 	fmt.Print("Dash Secret Key: \n")
 	fmt.Print(hex.EncodeToString(privateKey))
@@ -62,6 +64,22 @@ func dash_() {
 	fmt.Print(hex.EncodeToString(publicKey))
 	fmt.Print("\n")
 	fmt.Print("Dash Address: \n")
-	fmt.Print(base58.Encode(address))
+	fmt.Print(string(address))
+	fmt.Print("\n")
+}
+
+func xrp() {
+	privateKey, _ := ripple.GenerateKey()
+	publicKey := ripple.GetPublicKey(privateKey)
+	address, _ := ripple.GetAddress(privateKey)
+
+	fmt.Print("Ripple Secret Key: \n")
+	fmt.Print(hex.EncodeToString(privateKey))
+	fmt.Print("\n")
+	fmt.Print("Ripple Public Key: \n")
+	fmt.Print(hex.EncodeToString(publicKey))
+	fmt.Print("\n")
+	fmt.Print("Ripple Address: \n")
+	fmt.Print(string(address))
 	fmt.Print("\n")
 }

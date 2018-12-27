@@ -1,4 +1,4 @@
-package dash
+package ripple
 
 import (
 	"github.com/krboktv/blockchain-swiss-knife/utils"
@@ -13,7 +13,7 @@ func GetPublicKey(key []byte) []byte {
 }
 
 func GetAddress(key []byte) ([]byte, error) {
-	networkByte := []byte{0x4c}
+	networkByte := []byte{0x00}
 	pbk := GetPublicKey(key)
 	step1 := utils.SHA256(pbk)
 	step2 := utils.RIPEMD160(step1)
@@ -22,5 +22,5 @@ func GetAddress(key []byte) ([]byte, error) {
 	step5 := utils.SHA256(step4)
 	step6 := step5[:4]
 	step7 := append(step3, step6...)
-	return utils.EncodeToBase58(utils.EncodeBitcoin, step7)
+	return utils.EncodeToBase58(utils.EncodeRipple, step7)
 }

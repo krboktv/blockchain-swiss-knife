@@ -12,7 +12,7 @@ func GetPublicKey(key []byte) []byte {
 	return utils.GetPublicKey(key)
 }
 
-func GetAddress(key []byte) []byte {
+func GetAddress(key []byte) ([]byte, error) {
 	networkByte := []byte{0x00}
 	pbk := GetPublicKey(key)
 	step1 := utils.SHA256(pbk)
@@ -22,5 +22,5 @@ func GetAddress(key []byte) []byte {
 	step5 := utils.SHA256(step4)
 	step6 := step5[:4]
 	step7 := append(step3, step6...)
-	return step7
+	return utils.EncodeToBase58(utils.EncodeBitcoin, step7)
 }
