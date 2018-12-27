@@ -113,8 +113,4 @@ func stellar(){
 	fmt.Print("Address: ")
 	fmt.Println(x.Address)
 	fmt.Println("---Stellar---")
-
-
-
-
 }
