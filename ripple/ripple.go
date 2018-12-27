@@ -3,16 +3,24 @@ package ripple
 import (
 	"crypto/rand"
 	"github.com/krboktv/blockchain-swiss-knife/utils"
+	"encoding/binary"
 )
 
-func generateRandomPassphrase() []byte {
+func generateRandomPassphrase() ([]byte, error) {
 	phrase := make([]byte, 16)
-	rand.Read(phrase)
-	return phrase
+	rnd, err := rand.Read(phrase)
+	if err != nil {
+		return nil, err
+	}
+	binary.LittleEndian.PutUint32(phrase, uint32(rnd))
+	return phrase, nil
 }
 
 func generateRandomSeed() ([]byte, error) {
-	passphrase := generateRandomPassphrase()
+	passphrase, err := generateRandomPassphrase()
+	if err != nil {
+		return nil, err
+	}
 	seed := utils.SHA512(passphrase)[:16]
 	return encodeSeedToBase58Check(seed)
 }

@@ -76,10 +76,10 @@ func dash_() {
 func xrp() {
 	privateKey, _ := ripple.GenerateKey()
 	publicKey := ripple.GetPublicKey(privateKey)
-	pvk := ripple.TestGenerateSeed()
-	address, _ := ripple.GetAddress(pvk)
+	address, _ := ripple.GetAddress(privateKey)
+
 	fmt.Print("Ripple Private Key: \n")
-	fmt.Print(hex.EncodeToString(pvk))
+	fmt.Print(hex.EncodeToString(privateKey))
 	fmt.Print("\n")
 	fmt.Print("Ripple Public Key: \n")
 	fmt.Print(hex.EncodeToString(publicKey))
