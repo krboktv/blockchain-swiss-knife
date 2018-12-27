@@ -100,7 +100,7 @@ func xrp() {
 	fmt.Println("---Ripple---")
 }
 
-func stellar() {
+func stellar()  {
 	fmt.Println("---Stellar---")
 
 	x,err := st.GenerateKey()
