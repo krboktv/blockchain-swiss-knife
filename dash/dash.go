@@ -19,7 +19,6 @@ func GetAddress(key []byte) ([]byte, error) {
 	step2 := utils.RIPEMD160(step1)
 	step3 := append(networkByte, step2...)
 	step4 := utils.DoubleSHA256(step3)
-	step5 := step4[:4]
-	step6 := append(step3, step5...)
-	return utils.EncodeToBase58(utils.EncodeBitcoin, step6)
+	step5 := append(step3, step4[:4]...)
+	return utils.EncodeToBase58(utils.EncodeBitcoin, step5)
 }
