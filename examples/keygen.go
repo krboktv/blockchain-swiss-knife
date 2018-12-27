@@ -30,15 +30,14 @@ func eth() {
 	publicKey := ethereum.GetPublicKey(privateKey)
 	address := ethereum.GetAddress(privateKey)
 
-	fmt.Print("Ethereum Private Key: \n")
-	fmt.Print(hex.EncodeToString(privateKey))
-	fmt.Print("\n")
-	fmt.Print("Ethereum Public Key: \n")
-	fmt.Print(hex.EncodeToString(publicKey))
-	fmt.Print("\n")
-	fmt.Print("Ethereum Address: \n")
-	fmt.Print(hex.EncodeToString(address))
-	fmt.Print("\n")
+	fmt.Println("---Ethereum---")
+	fmt.Print("Private Key: ")
+	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Print("Public Key: ")
+	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Print("Address: ")
+	fmt.Println(hex.EncodeToString(address))
+	fmt.Println("---Ethereum---")
 }
 
 func btc() {
@@ -46,15 +45,15 @@ func btc() {
 	publicKey := bitcoin.GetPublicKey(privateKey)
 	address, _ := bitcoin.GetAddress(privateKey)
 
-	fmt.Print("Bitcoin Private Key: \n")
-	fmt.Print(hex.EncodeToString(privateKey))
-	fmt.Print("\n")
-	fmt.Print("Bitcoin Public Key: \n")
-	fmt.Print(hex.EncodeToString(publicKey))
-	fmt.Print("\n")
-	fmt.Print("Bitcoin Address: \n")
-	fmt.Print(string(address))
-	fmt.Print("\n")
+	fmt.Println("---Bitcoin---")
+	fmt.Print("Private Key: ")
+	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Print("Public Key: ")
+	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Print("Address: ")
+	fmt.Println(string(address))
+	fmt.Println("---Bitcoin---")
+
 }
 
 func dash_() {
@@ -62,46 +61,60 @@ func dash_() {
 	publicKey := dash.GetPublicKey(privateKey)
 	address, _ := dash.GetAddress(privateKey)
 
-	fmt.Print("Dash Private Key: \n")
-	fmt.Print(hex.EncodeToString(privateKey))
-	fmt.Print("\n")
-	fmt.Print("Dash Public Key: \n")
-	fmt.Print(hex.EncodeToString(publicKey))
-	fmt.Print("\n")
-	fmt.Print("Dash Address: \n")
-	fmt.Print(string(address))
-	fmt.Print("\n")
+	fmt.Println("---Dash---")
+	fmt.Print("Private Key: ")
+	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Print("Public Key: ")
+	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Print("Dash Address: ")
+	fmt.Println(string(address))
+	fmt.Println("---Dash---")
 }
 
 func xrp() {
-	privateKey, _ := ripple.GenerateKey()
-	publicKey := ripple.GetPublicKey(privateKey)
-	address, _ := ripple.GetAddress(privateKey)
+	seed, _ := ripple.GenerateKey()
+	seedFromExistingPassphrase, _ := ripple.GenerateKeyFromPassphrase([]byte("masterpassphrase"))
+	privateKey, _ := ripple.GetPrivateKeyFromSeed(seedFromExistingPassphrase)
+	publicKey, _ := ripple.GetPublicKey(seed)
+	pvk, _ := hex.DecodeString("1ACAAEDECE405B2A958212629E16F2EB46B153EEE94CDD350FDEFF52795525B7")
+	publicKeyFromPrivateKey := ripple.GetPublicKeyFromPrivateKey(pvk)
+	address, _ := ripple.GetAddress(seed)
+	addressFromPrivateKey, _ := ripple.GetAddressFromPrivateKey(pvk)
 
-	fmt.Print("Ripple Private Key: \n")
-	fmt.Print(hex.EncodeToString(privateKey))
-	fmt.Print("\n")
-	fmt.Print("Ripple Public Key: \n")
-	fmt.Print(hex.EncodeToString(publicKey))
-	fmt.Print("\n")
-	fmt.Print("Ripple Address: \n")
-	fmt.Print(string(address))
-	fmt.Print("\n")
+	fmt.Println("---Ripple---")
+	fmt.Print("Seed: ")
+	fmt.Println(string(seed))
+	fmt.Print("Seed from existing passphrase: ")
+	fmt.Println(string(seedFromExistingPassphrase))
+	fmt.Print("PrivateKey From Seed: ")
+	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Print("Public Key: ")
+	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Print("Public Key From Private Key: ")
+	fmt.Println(hex.EncodeToString(publicKeyFromPrivateKey))
+	fmt.Print("Address From Seed: ")
+	fmt.Println(string(address))
+	fmt.Print("Address From Private Key: ")
+	fmt.Println(string(addressFromPrivateKey))
+	fmt.Println("---Ripple---")
 }
 
 func stellar(){
-	fmt.Println("Stellar:")
+	fmt.Println("---Stellar---")
 
-	x,err := st.GeneratePrivateKey()
+	x,err := st.GenerateKey()
 	if err != nil{
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
-	fmt.Println("Public key:")
-	fmt.Println(x.Address)
-	fmt.Println("Private key:")
+	fmt.Print("Public key: ")
+	fmt.Print(x.Address)
+	fmt.Println()
+	fmt.Print("Private key: ")
 	fmt.Println(x.Seed)
+	fmt.Println("---Stellar---")
+
 
 
 

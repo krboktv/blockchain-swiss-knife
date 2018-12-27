@@ -2,8 +2,8 @@ package ripple
 
 import (
 	"crypto/rand"
-	"github.com/krboktv/blockchain-swiss-knife/utils"
 	"encoding/binary"
+	"github.com/krboktv/blockchain-swiss-knife/utils"
 )
 
 func generateRandomPassphrase() ([]byte, error) {
@@ -71,12 +71,21 @@ func GetPublicKeyFromPrivateKey(pvk []byte) []byte {
 	return utils.GetPublicKey(pvk)
 }
 
-func GetAddress(key []byte) ([]byte, error) {
-	networkByte := []byte{0x00}
-	pbk, err := GetPublicKey(key)
+func GetAddress(seed []byte) ([]byte, error) {
+	return getAddressFromSeed(seed)
+}
+
+func getAddressFromSeed(seed []byte) ([]byte, error) {
+	pvk, err := GetPrivateKeyFromSeed(seed)
 	if err != nil {
 		return nil, err
 	}
+	return GetAddressFromPrivateKey(pvk)
+}
+
+func GetAddressFromPrivateKey(key []byte) ([]byte, error) {
+	networkByte := []byte{0x00}
+	pbk := GetPublicKeyFromPrivateKey(key)
 	step1 := utils.SHA256(pbk)
 	step2 := utils.RIPEMD160(step1)
 	step3 := append(networkByte, step2...)

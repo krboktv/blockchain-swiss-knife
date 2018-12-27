@@ -14,7 +14,7 @@ func debugf(method string, msg string, args ...interface{}) {
 	logrus.WithFields(logrus.Fields{"lib": "microstellar", "method": method}).Debugf(msg, args...)
 }
 
-func GeneratePrivateKey()(*KeyPair, error){
+func GenerateKey()(*KeyPair, error){
 	pair, err := keypair.Random()
 	if err != nil {
 		return nil,err
