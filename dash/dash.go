@@ -1,7 +1,7 @@
 package dash
 
 import (
-	"../utils"
+	"github.com/krboktv/blockchain-swiss-knife/utils"
 )
 
 func GenerateKey() ([]byte, error) {
