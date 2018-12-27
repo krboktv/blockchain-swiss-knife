@@ -17,7 +17,7 @@ func generateRandomSeed() ([]byte, error) {
 	return encodeSeedToBase58Check(seed)
 }
 
-func generateSeedFromPassphrase(passphrase string) ([]byte, error) {
+func generateSeedFromPassphrase(passphrase []byte) ([]byte, error) {
 	seed := utils.SHA512(passphrase)[:16]
 	return encodeSeedToBase58Check(seed)
 }
@@ -42,7 +42,7 @@ func GetPrivateKeyFromSeed(seed []byte) ([]byte, error) {
 	return hash[:32], nil
 }
 
-func GenerateKeyFromPassphrase(passphrase string) ([]byte, error) {
+func GenerateKeyFromPassphrase(passphrase []byte) ([]byte, error) {
 	return generateSeedFromPassphrase(passphrase)
 }
 
