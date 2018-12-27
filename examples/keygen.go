@@ -25,7 +25,7 @@ func eth() {
 	publicKey := ethereum.GetPublicKey(privateKey)
 	address := ethereum.GetAddress(privateKey)
 
-	fmt.Print("Ethereum Secret Key: \n")
+	fmt.Print("Ethereum Private Key: \n")
 	fmt.Print(hex.EncodeToString(privateKey))
 	fmt.Print("\n")
 	fmt.Print("Ethereum Public Key: \n")
@@ -41,7 +41,7 @@ func btc() {
 	publicKey := bitcoin.GetPublicKey(privateKey)
 	address, _ := bitcoin.GetAddress(privateKey)
 
-	fmt.Print("Bitcoin Secret Key: \n")
+	fmt.Print("Bitcoin Private Key: \n")
 	fmt.Print(hex.EncodeToString(privateKey))
 	fmt.Print("\n")
 	fmt.Print("Bitcoin Public Key: \n")
@@ -57,7 +57,7 @@ func dash_() {
 	publicKey := dash.GetPublicKey(privateKey)
 	address, _ := dash.GetAddress(privateKey)
 
-	fmt.Print("Dash Secret Key: \n")
+	fmt.Print("Dash Private Key: \n")
 	fmt.Print(hex.EncodeToString(privateKey))
 	fmt.Print("\n")
 	fmt.Print("Dash Public Key: \n")
@@ -71,10 +71,10 @@ func dash_() {
 func xrp() {
 	privateKey, _ := ripple.GenerateKey()
 	publicKey := ripple.GetPublicKey(privateKey)
-	address, _ := ripple.GetAddress(privateKey)
-
-	fmt.Print("Ripple Secret Key: \n")
-	fmt.Print(hex.EncodeToString(privateKey))
+	pvk := ripple.TestGenerateSeed()
+	address, _ := ripple.GetAddress(pvk)
+	fmt.Print("Ripple Private Key: \n")
+	fmt.Print(hex.EncodeToString(pvk))
 	fmt.Print("\n")
 	fmt.Print("Ripple Public Key: \n")
 	fmt.Print(hex.EncodeToString(publicKey))

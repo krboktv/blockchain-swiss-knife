@@ -31,6 +31,16 @@ func SHA256(data []byte) []byte {
 	return s256.Sum(nil)
 }
 
+func DoubleSHA256(data []byte) []byte {
+	return SHA256(SHA256(data))
+}
+
+func SHA512(data []byte) []byte {
+	s512 := crypto.SHA512.New()
+	s512.Write(data)
+	return s512.Sum(nil)
+}
+
 func Keccak256(data []byte) []byte {
 	return eth.Keccak256(data)
 }
@@ -41,6 +51,10 @@ func RIPEMD160(data []byte) []byte {
 	return r160.Sum(nil)
 }
 
-func EncodeToBase58(alphabet string, address []byte) ([]byte, error) {
-	return base58.NewEncoding(alphabet).Encode(address)
+func EncodeToBase58(alphabet string, data []byte) ([]byte, error) {
+	return base58.NewEncoding(alphabet).Encode(data)
+}
+
+func DecodeFromBase58(alphabet string, data []byte) ([]byte, error) {
+	return base58.NewEncoding(alphabet).Decode(data)
 }
