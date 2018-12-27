@@ -50,13 +50,25 @@ func GenerateKey() ([]byte, error) {
 	return generateRandomSeed()
 }
 
-func GetPublicKey(key []byte) []byte {
-	return utils.GetPublicKey(key)
+func GetPublicKey(seed []byte) ([]byte, error) {
+	return getPublicKeyFromSeed(seed)
+}
+
+func getPublicKeyFromSeed(key []byte) ([]byte, error) {
+	pvk, err := GetPrivateKeyFromSeed(key)
+	return utils.GetPublicKey(pvk), err
+}
+
+func GetPublicKeyFromPrivateKey(pvk []byte) []byte {
+	return utils.GetPublicKey(pvk)
 }
 
 func GetAddress(key []byte) ([]byte, error) {
 	networkByte := []byte{0x00}
-	pbk := GetPublicKey(key)
+	pbk, err := GetPublicKey(key)
+	if err != nil {
+		return nil, err
+	}
 	step1 := utils.SHA256(pbk)
 	step2 := utils.RIPEMD160(step1)
 	step3 := append(networkByte, step2...)
