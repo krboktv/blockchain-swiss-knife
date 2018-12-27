@@ -1,13 +1,14 @@
 package main
 
 import (
+	st "../stellar"
 	"encoding/hex"
 	"fmt"
 	"github.com/krboktv/blockchain-swiss-knife/bitcoin"
+	"github.com/krboktv/blockchain-swiss-knife/bitcoinGold"
 	"github.com/krboktv/blockchain-swiss-knife/dash"
 	"github.com/krboktv/blockchain-swiss-knife/ethereum"
 	"github.com/krboktv/blockchain-swiss-knife/ripple"
-	st "../stellar"
 	"os"
 )
 
@@ -23,6 +24,7 @@ func main() {
 	fmt.Println("\n")
 	stellar()
 	fmt.Println("\n")
+	btg()
 }
 
 func eth() {
@@ -53,7 +55,6 @@ func btc() {
 	fmt.Print("Address: ")
 	fmt.Println(string(address))
 	fmt.Println("---Bitcoin---")
-
 }
 
 func dash_() {
@@ -99,7 +100,7 @@ func xrp() {
 	fmt.Println("---Ripple---")
 }
 
-func stellar(){
+func stellar() {
 	fmt.Println("---Stellar---")
 
 	x,err := st.GenerateKey()
@@ -113,4 +114,19 @@ func stellar(){
 	fmt.Print("Address: ")
 	fmt.Println(x.Address)
 	fmt.Println("---Stellar---")
+}
+
+func btg()  {
+	privateKey, _ := bitcoinGold.GenerateKey()
+	publicKey := bitcoinGold.GetPublicKey(privateKey)
+	address, _ := bitcoinGold.GetAddress(privateKey)
+
+	fmt.Println("---BitcoinGold---")
+	fmt.Print("Private Key: ")
+	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Print("Public Key: ")
+	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Print("Address: ")
+	fmt.Println(string(address))
+	fmt.Println("---BitcoinGold---")
 }
