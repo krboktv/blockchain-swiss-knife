@@ -7,6 +7,8 @@ import (
 	"github.com/krboktv/blockchain-swiss-knife/dash"
 	"github.com/krboktv/blockchain-swiss-knife/ethereum"
 	"github.com/krboktv/blockchain-swiss-knife/ripple"
+	st "../stellar"
+	"os"
 )
 
 func main() {
@@ -18,6 +20,8 @@ func main() {
 	dash_()
 	fmt.Print("\n")
 	xrp()
+	fmt.Println("\n")
+	stellar()
 }
 
 func eth() {
@@ -82,4 +86,22 @@ func xrp() {
 	fmt.Print("Ripple Address: \n")
 	fmt.Print(string(address))
 	fmt.Print("\n")
+}
+
+func stellar(){
+	fmt.Println("Stellar:")
+
+	x,err := st.GeneratePrivateKey()
+	if err != nil{
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	fmt.Println("Public key:")
+	fmt.Println(x.Address)
+	fmt.Println("Private key:")
+	fmt.Println(x.Seed)
+
+
+
 }
