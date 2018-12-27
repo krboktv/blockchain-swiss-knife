@@ -2,7 +2,7 @@ package stellar
 
 import (
 	"github.com/sirupsen/logrus"
-	"github.com/stellar/go/keypair"
+	"github.com/krboktv/blockchain-swiss-knife/stellar/keypair"
 )
 
 type KeyPair struct {

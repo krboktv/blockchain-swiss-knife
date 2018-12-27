@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/asaskevich/govalidator"
-	"github.com/krboktv/blockchain-swiss-knife/stellar/support/errors"
+	"github.com/krboktv/blockchain-swiss-knife/stellar/errors"
 )
 
 // Separator seperates the name and domain portions of an address

@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/krboktv/blockchain-swiss-knife/stellar/hash"
-	"github.com/krboktv/blockchain-swiss-knife/stellar/support/errors"
+	"github.com/krboktv/blockchain-swiss-knife/stellar/errors"
 	"github.com/krboktv/blockchain-swiss-knife/stellar/xdr"
 )
 
