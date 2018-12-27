@@ -1,12 +1,12 @@
 package main
 
 import (
-	"../bitcoin"
-	"../dash"
-	"../ethereum"
 	"encoding/hex"
 	"fmt"
 	"github.com/btcsuite/btcutil/base58"
+	"github.com/krboktv/blockchain-swiss-knife/bitcoin"
+	"github.com/krboktv/blockchain-swiss-knife/dash"
+	"github.com/krboktv/blockchain-swiss-knife/ethereum"
 )
 
 func main() {

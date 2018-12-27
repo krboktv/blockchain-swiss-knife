@@ -1,7 +1,7 @@
 package bitcoin
 
 import (
-	"../utils"
+	"github.com/krboktv/blockchain-swiss-knife/utils"
 )
 
 func GenerateKey() ([]byte, error) {
