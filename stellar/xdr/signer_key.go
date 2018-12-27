@@ -3,8 +3,8 @@ package xdr
 import (
 	"fmt"
 
-	"github.com/stellar/go/strkey"
-	"github.com/stellar/go/support/errors"
+	"github.com/krboktv/blockchain-swiss-knife/stellar/strkey"
+	"github.com/krboktv/blockchain-swiss-knife/stellar/errors"
 )
 
 // Address returns the strkey encoded form of this signer key.  This method will
