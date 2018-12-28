@@ -21,11 +21,11 @@ func main() {
 	fmt.Print("\n")
 	dash_()
 	fmt.Print("\n")
-	//xrp()
+	xrp()
 	fmt.Println("\n")
 	stellar()
 	fmt.Println("\n")
-	//btg()
+	btg()
 	xmr()
 }
 
