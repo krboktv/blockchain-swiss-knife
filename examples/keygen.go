@@ -73,22 +73,22 @@ func dash_() {
 }
 
 func xrp() {
-	seed, _ := ripple.GenerateKey()
+	seed := []byte("sspmdvhjCgmasqzg9a6HW6rvYLEoD")
 	seedFromExistingPassphrase, _ := ripple.GenerateKeyFromPassphrase([]byte("masterpassphrase"))
-	privateKey, _ := ripple.GetPrivateKeyFromSeed(seedFromExistingPassphrase)
-	publicKey, _ := ripple.GetPublicKey(seed)
+	childAccount, _ := ripple.GetChildAccount(seedFromExistingPassphrase)
+	publicKey, _ := ripple.GetPublicKey(seedFromExistingPassphrase)
 	pvk, _ := hex.DecodeString("1ACAAEDECE405B2A958212629E16F2EB46B153EEE94CDD350FDEFF52795525B7")
 	publicKeyFromPrivateKey := ripple.GetPublicKeyFromPrivateKey(pvk)
 	address, _ := ripple.GetAddress(seed)
 	addressFromPrivateKey, _ := ripple.GetAddressFromPrivateKey(pvk)
 
 	fmt.Println("---Ripple---")
-	fmt.Print("Seed: ")
-	fmt.Println(string(seed))
+	//fmt.Print("Seed: ")
+	//fmt.Println(string(seed))
 	fmt.Print("Seed from existing passphrase: ")
 	fmt.Println(string(seedFromExistingPassphrase))
 	fmt.Print("PrivateKey From Seed: ")
-	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Println(hex.EncodeToString(childAccount.GetPrivateKey()))
 	fmt.Print("Public Key: ")
 	fmt.Println(hex.EncodeToString(publicKey))
 	fmt.Print("Public Key From Private Key: ")

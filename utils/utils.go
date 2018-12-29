@@ -7,10 +7,12 @@ import (
 	"github.com/haltingstate/secp256k1-go"
 	"github.com/spearson78/guardian/encoding/base58"
 	"github.com/vsergeev/btckeygenie/btckey"
+	"math/big"
 )
 
 const EncodeRipple = "rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz"
 const EncodeBitcoin = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+const CurveOrder = "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141"
 
 func GenerateKey() ([]byte, error) {
 	pvk, err := btckey.GenerateKey(rand.Reader)
@@ -58,3 +60,20 @@ func EncodeToBase58(alphabet string, data []byte) ([]byte, error) {
 func DecodeFromBase58(alphabet string, data []byte) ([]byte, error) {
 	return base58.NewEncoding(alphabet).Decode(data)
 }
+
+func AddBytes(data1 []byte, data2 []byte) (*big.Int) {
+	return new(big.Int).Add(BytesToBigInt(data1), BytesToBigInt(data2))
+}
+
+func ModBytes(data1 []byte, data2 []byte) (*big.Int) {
+	return new(big.Int).Mod(BytesToBigInt(data1), BytesToBigInt(data2))
+}
+
+func BytesToBigInt(data []byte) (*big.Int) {
+	return new(big.Int).SetBytes(data)
+}
+
+//func IsGrater(data1 []byte, data2 []byte) (*big.Int) {
+//	bool := new(big.Int).
+//	return new(big.Int).SetBytes(data)
+//}
