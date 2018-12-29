@@ -137,7 +137,7 @@ func btg() {
 
 func xmr() {
 	prvtKey := monero.GenerateKey()
-	pubKey := monero.GetPublicKey(prvtKey)
+	pubKey := monero.GetPublicKey(*prvtKey)
 	fmt.Println("---Monero---")
 	fmt.Println("Monero private:")
 	fmt.Println(prvtKey)
