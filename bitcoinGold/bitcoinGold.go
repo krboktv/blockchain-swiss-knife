@@ -1,7 +1,7 @@
 package bitcoinGold
 
 import (
-"github.com/krboktv/blockchain-swiss-knife/utils"
+	"github.com/krboktv/blockchain-swiss-knife/utils"
 )
 
 func GenerateKey() ([]byte, error) {

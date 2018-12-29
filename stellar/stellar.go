@@ -1,8 +1,8 @@
 package stellar
 
 import (
-	"github.com/sirupsen/logrus"
 	"github.com/krboktv/blockchain-swiss-knife/stellar/keypair"
+	"github.com/sirupsen/logrus"
 )
 
 type KeyPair struct {
@@ -14,10 +14,10 @@ func debugf(method string, msg string, args ...interface{}) {
 	logrus.WithFields(logrus.Fields{"lib": "microstellar", "method": method}).Debugf(msg, args...)
 }
 
-func GenerateKey()(*KeyPair, error){
+func GenerateKey() (*KeyPair, error) {
 	pair, err := keypair.Random()
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 
 	debugf("CreateKeyPair", "created address: %s, seed: <redacted>", pair.Address())

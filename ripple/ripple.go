@@ -13,7 +13,7 @@ type RootAccount struct {
 }
 
 type ChildAccount struct {
-	index 	   []byte
+	index      []byte
 	privateKey []byte
 }
 
@@ -35,6 +35,7 @@ func GetFamilyGenerator(seed []byte) (*RootAccount, error) {
 		pvk = utils.SHA512(update)[:32]
 		counter++
 	}
+
 	return &RootAccount{
 		pvk,
 	}, nil
@@ -69,6 +70,7 @@ func GetChildAccount(seed []byte) (*ChildAccount, error) {
 		update1 = utils.AddBytes(rootAccount.GetPrivateKey(), utils.SHA512(update)[:32]).Bytes()
 		counter++
 	}
+
 	return &ChildAccount{
 		accountIndex,
 		utils.ModBytes(update1, curveOrderBytes).Bytes(),

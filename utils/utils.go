@@ -61,15 +61,15 @@ func DecodeFromBase58(alphabet string, data []byte) ([]byte, error) {
 	return base58.NewEncoding(alphabet).Decode(data)
 }
 
-func AddBytes(data1 []byte, data2 []byte) (*big.Int) {
+func AddBytes(data1 []byte, data2 []byte) *big.Int {
 	return new(big.Int).Add(BytesToBigInt(data1), BytesToBigInt(data2))
 }
 
-func ModBytes(data1 []byte, data2 []byte) (*big.Int) {
+func ModBytes(data1 []byte, data2 []byte) *big.Int {
 	return new(big.Int).Mod(BytesToBigInt(data1), BytesToBigInt(data2))
 }
 
-func BytesToBigInt(data []byte) (*big.Int) {
+func BytesToBigInt(data []byte) *big.Int {
 	return new(big.Int).SetBytes(data)
 }
 
