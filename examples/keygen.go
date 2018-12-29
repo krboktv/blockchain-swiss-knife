@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/hex"
 	"fmt"
+	"github.com/krboktv/blockchain-swiss-knife/bitcoinGold"
 	"os"
 
 	st "../stellar"
@@ -26,6 +27,7 @@ func main() {
 	stellar()
 	fmt.Println("\n")
 	btg()
+	fmt.Println("\n")
 	xmr()
 }
 
@@ -119,9 +121,9 @@ func stellar() {
 }
 
 func btg() {
-	//privateKey, _ := bitcoinGold.GenerateKey()
-	//publicKey := bitcoinGold.GetPublicKey(privateKey)
-	//address, _ := bitcoinGold.GetAddress(privateKey)
+	privateKey, _ := bitcoinGold.GenerateKey()
+	publicKey := bitcoinGold.GetPublicKey(privateKey)
+	address, _ := bitcoinGold.GetAddress(privateKey)
 
 	fmt.Println("---BitcoinGold---")
 	fmt.Print("Private Key: ")
@@ -135,8 +137,10 @@ func btg() {
 
 func xmr() {
 	pr, pub := moneroutil.NewKeyPair()
+	fmt.Println("---Monero---")
 	fmt.Println("Monero private:")
 	fmt.Println(pr)
 	fmt.Println("Monero public:")
 	fmt.Println(pub)
+	fmt.Println("---Monero---")
 }
