@@ -10,8 +10,8 @@ import (
 	"github.com/krboktv/blockchain-swiss-knife/bitcoin"
 	"github.com/krboktv/blockchain-swiss-knife/dash"
 	"github.com/krboktv/blockchain-swiss-knife/ethereum"
+	"github.com/krboktv/blockchain-swiss-knife/monero"
 	"github.com/krboktv/blockchain-swiss-knife/ripple"
-	"github.com/krboktv/blockchain-swiss-knife/utils/moneroutil"
 )
 
 func main() {
@@ -136,11 +136,12 @@ func btg() {
 }
 
 func xmr() {
-	pr, pub := moneroutil.NewKeyPair()
+	prvtKey := monero.GenerateKey()
+	pubKey := monero.GetPublicKey(prvtKey)
 	fmt.Println("---Monero---")
 	fmt.Println("Monero private:")
-	fmt.Println(pr)
+	fmt.Println(prvtKey)
 	fmt.Println("Monero public:")
-	fmt.Println(pub)
+	fmt.Println(pubKey)
 	fmt.Println("---Monero---")
 }
