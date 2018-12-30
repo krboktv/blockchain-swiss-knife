@@ -5,7 +5,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"context"
-	"math/Big"
+	"math/big"
 	"log"
 )
 

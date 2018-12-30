@@ -43,7 +43,7 @@ func eth() {
 	fmt.Println(hex.EncodeToString(publicKey))
 	fmt.Print("Address: ")
 	fmt.Println(hex.EncodeToString(address))
-	fmt.Println("Balance: ")
+	fmt.Print("Balance: ")
 	fmt.Println(ethereum.GetBalance(hex.EncodeToString(address)))
 	fmt.Println("---Ethereum---")
 
