@@ -23,7 +23,7 @@ func GetAddress(key []byte) []byte {
 	return utils.Keccak256(pbk[1:])[12:32]
 }
 
-func GetBalance(addr string)(ethBalance float64){
+func GetBalance(address string)(balanceFloat float64){
 
 	client, err := ethclient.Dial("https://mainnet.infura.io")
 	if err != nil {
@@ -32,15 +32,15 @@ func GetBalance(addr string)(ethBalance float64){
 
 	ctx := context.Background()
 
-	account := common.HexToAddress(addr)
+	account := common.HexToAddress(address)
 
 	balance, err := client.BalanceAt(ctx, account, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	floatBalance, _ := strconv.ParseFloat(balance.String(), 64)
+	ethBalance, _ := strconv.ParseFloat(balance.String(), 64)
 
-	ethBalance = floatBalance / math.Pow(10, 18)
+	balanceFloat = ethBalance / math.Pow(10, 18)
 
 	return
 }

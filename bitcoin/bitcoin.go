@@ -34,7 +34,7 @@ func GetBalance(address string)(balanceFloat float64){
 
 	balanceFloat, _ = strconv.ParseFloat(balance.String(),64)
 
-	balanceFloat *= 0.00000001
+	balanceFloat *= 0.00000001 // satoshi to btc
 
 	return
 }

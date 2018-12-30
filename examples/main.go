@@ -20,7 +20,7 @@ func main() {
 	fmt.Print("\n")
 	btc()
 	fmt.Print("\n")
-	dash_()
+	//dash_()
 	fmt.Print("\n")
 	xrp()
 	fmt.Println("\n")
@@ -123,11 +123,16 @@ func stellar() {
 		os.Exit(1)
 	}
 
+	balance := st.GetBalance("GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
 	fmt.Print("Seed phrase: ")
 	fmt.Println(x.Seed)
 	fmt.Print("Address: ")
 	fmt.Println(x.Address)
+	fmt.Println("Account for balance test: GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
+	fmt.Print("Test Balance: ")
+	fmt.Println(balance)
 	fmt.Println("---Stellar---")
+
 }
 
 func btg() {
