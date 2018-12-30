@@ -43,7 +43,10 @@ func eth() {
 	fmt.Println(hex.EncodeToString(publicKey))
 	fmt.Print("Address: ")
 	fmt.Println(hex.EncodeToString(address))
+	fmt.Println("Balance: ")
+	fmt.Println(ethereum.GetBalance(hex.EncodeToString(address)))
 	fmt.Println("---Ethereum---")
+
 }
 
 func btc() {
@@ -140,8 +143,8 @@ func xmr() {
 	pubKey := monero.GetPublicKey(*prvtKey)
 	fmt.Println("---Monero---")
 	fmt.Println("Monero private:")
-	fmt.Println(prvtKey)
+	fmt.Println(hex.EncodeToString(prvtKey.Serialize()))
 	fmt.Println("Monero public:")
-	fmt.Println(pubKey)
+	fmt.Println(hex.EncodeToString(pubKey.Serialize()))
 	fmt.Println("---Monero---")
 }
