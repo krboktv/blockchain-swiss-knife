@@ -43,8 +43,9 @@ func eth() {
 	fmt.Println(hex.EncodeToString(publicKey))
 	fmt.Print("Address: ")
 	fmt.Println(hex.EncodeToString(address))
-	fmt.Print("Balance: ")
-	fmt.Println(ethereum.GetBalance("0x99cEd4A0e5eC897956FB2ED57AcE5A01C5EB71e1"))
+	fmt.Println("Account for balance test: 0x343295B49522CFc38aF517c58eBB78565C42Ed95")
+	fmt.Print("Test Balance: ")
+	fmt.Println(ethereum.GetBalance("0x343295B49522CFc38aF517c58eBB78565C42Ed95"))
 	fmt.Println("---Ethereum---")
 
 }
@@ -61,8 +62,9 @@ func btc() {
 	fmt.Println(hex.EncodeToString(publicKey))
 	fmt.Print("Address: ")
 	fmt.Println(string(address))
-	fmt.Print("Balance: ")
-	fmt.Println(bitcoin.GetBalance("1P3VhitHv7ieVqCebHyeK8CgZJDL2KPkGB"))
+	fmt.Println("Account for balance test: 18bXSCSXiTD3DB3XEz851VpB4ZK49rkprT")
+	fmt.Print("Test Balance: ")
+	fmt.Println(bitcoin.GetBalance("18bXSCSXiTD3DB3XEz851VpB4ZK49rkprT"))
 	fmt.Println("---Bitcoin---")
 }
 
@@ -78,6 +80,9 @@ func dash_() {
 	fmt.Println(hex.EncodeToString(publicKey))
 	fmt.Print("Dash Address: ")
 	fmt.Println(string(address))
+	fmt.Println("Account for balance test: XkNPrBSJtrHZUvUqb3JF4g5rMB3uzaJfEL")
+	fmt.Print("Test Balance: ")
+	fmt.Println(dash.GetBalance("XkNPrBSJtrHZUvUqb3JF4g5rMB3uzaJfEL"))
 	fmt.Println("---Dash---")
 }
 
@@ -137,6 +142,9 @@ func btg() {
 	fmt.Println(hex.EncodeToString(publicKey))
 	fmt.Print("Address: ")
 	fmt.Println(string(address))
+	fmt.Println("Account for balance test: GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U")
+	fmt.Print("Test Balance: ")
+	fmt.Println(bitcoinGold.GetBalance("GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U"))
 	fmt.Println("---BitcoinGold---")
 }
 
