@@ -28,8 +28,10 @@ func GetBalance(addr string)(balance *big.Int){
 		log.Fatal(err)
 	}
 
-	account := common.HexToAddress("address")
-	balance, err = client.BalanceAt(context.Background(), account, nil)
+	ctx := context.Background()
+
+	account := common.HexToAddress(addr)
+	balance, err = client.BalanceAt(ctx, account, nil)
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -44,7 +44,7 @@ func eth() {
 	fmt.Print("Address: ")
 	fmt.Println(hex.EncodeToString(address))
 	fmt.Print("Balance: ")
-	fmt.Println(ethereum.GetBalance(hex.EncodeToString(address)))
+	fmt.Println(ethereum.GetBalance("0x99cEd4A0e5eC897956FB2ED57AcE5A01C5EB71e1"))
 	fmt.Println("---Ethereum---")
 
 }
@@ -61,6 +61,8 @@ func btc() {
 	fmt.Println(hex.EncodeToString(publicKey))
 	fmt.Print("Address: ")
 	fmt.Println(string(address))
+	fmt.Print("Balance: ")
+	fmt.Println(bitcoin.GetBalance("1P3VhitHv7ieVqCebHyeK8CgZJDL2KPkGB"))
 	fmt.Println("---Bitcoin---")
 }
 

@@ -22,3 +22,5 @@ func GetAddress(key []byte) ([]byte, error) {
 	step5 := append(step3, step4[:4]...)
 	return utils.EncodeToBase58(utils.EncodeBitcoin, step5)
 }
+
+
