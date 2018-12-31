@@ -195,7 +195,6 @@ func GetBalance(address string) (balanceFloat float64) {
 	var b RippleBalance
 	balance.ToJSON(&b)
 
-
 	balanceFloat, err = strconv.ParseFloat(b.Balance_changes[0].Final_balance, 64)
 	if err != nil {
 		fmt.Println(err)
