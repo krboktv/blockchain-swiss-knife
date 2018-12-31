@@ -46,16 +46,16 @@ func GetBalance(address string) (balanceFloat float64) {
 
 	balance.ToJSON(&b)
 
-	var stellarBalance string
+	var stellarBalanceString string
 
 	for _, j := range b.Balances {
 		if j.Asset_type == "native" {
 
-			stellarBalance = j.Balance
+			stellarBalanceString = j.Balance
 		}
 	}
 
-	balanceFloat, err = strconv.ParseFloat(stellarBalance, 64)
+	balanceFloat, err = strconv.ParseFloat(stellarBalanceString, 64)
 	if err != nil {
 		fmt.Println(err)
 	}

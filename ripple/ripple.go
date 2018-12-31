@@ -173,21 +173,33 @@ func encodeSeedToBase58Check(seed []byte) ([]byte, error) {
 
 func GetBalance(address string) (balanceFloat float64) {
 
+	//type RippleBalance struct {
+	//	Balance_changes []struct {
+	//		Amount_change string `json:"amount_change"`
+	//		Final_balance string `json:"final_balance"`
+	//		Node_index    int    `json:"node_index"`
+	//		Tx_index      int    `json:"tx_index"`
+	//		Change_type   string `json:"change_type"`
+	//		Currency      string `json:"currency"`
+	//		Executed_time string `json:"executed_time"`
+	//		Ledger_index  int    `json:"ledger_index"`
+	//		Tx_hash       string `json:"tx_hash"`
+	//	}
+	//}
+	//
+	//balance, err := req.Get("https://data.ripple.com/v2/accounts/" + address + "/balance_changes?descending=true")
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+
 	type RippleBalance struct {
-		Balance_changes []struct {
-			Amount_change string `json:"amount_change"`
-			Final_balance string `json:"final_balance"`
-			Node_index    int    `json:"node_index"`
-			Tx_index      int    `json:"tx_index"`
-			Change_type   string `json:"change_type"`
-			Currency      string `json:"currency"`
-			Executed_time string `json:"executed_time"`
-			Ledger_index  int    `json:"ledger_index"`
-			Tx_hash       string `json:"tx_hash"`
+		Balances []struct {
+			Currency string `json:"currency"`
+			Value    string `json:"value"`
 		}
 	}
 
-	balance, err := req.Get("https://data.ripple.com/v2/accounts/" + address + "/balance_changes?descending=true&limit=1")
+	balance, err := req.Get("https://data.ripple.com/v2/accounts/" + address + "/balances?currency=XRP")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -195,10 +207,9 @@ func GetBalance(address string) (balanceFloat float64) {
 	var b RippleBalance
 	balance.ToJSON(&b)
 
-	balanceFloat, err = strconv.ParseFloat(b.Balance_changes[0].Final_balance, 64)
+	balanceFloat, err = strconv.ParseFloat(b.Balances[0].Value, 64)
 	if err != nil {
 		fmt.Println(err)
 	}
 	return
-
 }
