@@ -5,7 +5,10 @@ import (
 	"crypto/rand"
 	"encoding/binary"
 	"encoding/hex"
+	"fmt"
+	"github.com/imroc/req"
 	"github.com/krboktv/blockchain-swiss-knife/utils"
+	"strconv"
 )
 
 type RootAccount struct {
@@ -166,4 +169,55 @@ func encodeSeedToBase58Check(seed []byte) ([]byte, error) {
 	step3 := append(step1, step2[:4]...)
 	step4, err := utils.EncodeToBase58(utils.EncodeRipple, step3)
 	return step4, err
+}
+
+func GetBalance(address string) (balanceFloat float64) {
+
+	//{
+	//	"result": "success",
+	//	"count": 1,
+	//	"marker": "rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn|20180209132302|000036448391|00002|00001",
+	//	"balance_changes": [
+	//	{
+	//	"amount_change": "260.321362",
+	//	"final_balance": "396.015188",
+	//	"node_index": 0,
+	//	"tx_index": 52,
+	//	"change_type": "payment_destination",
+	//	"currency": "XRP",
+	//	"executed_time": "2018-04-25T05:05:31Z",
+	//	"ledger_index": 38203698,
+	//	"tx_hash": "4D8F33648EB0EDE30FEE6041BDD3135A4F6CBF9D5302A8BCA711BFD08E96AE6B"
+	//	}
+	//]
+	//}
+
+	type RippleBalance struct {
+		Balance_changes []struct {
+			Amount_change string `json:"amount_change"`
+			Final_balance string `json:"final_balance"`
+			Node_index    int    `json:"node_index"`
+			Tx_index      int    `json:"tx_index"`
+			Change_type   string `json:"payment_destination"`
+			Currency      string `json:"currency"`
+			Executed_time string `json:"executed_time"`
+			Ledger_index  int    `json:"ledger_index"`
+			Tx_hash       string `json:"tx_hash"`
+		}
+	}
+
+	balance, err := req.Get("https://data.ripple.com/v2/accounts/" + address + "/balance_changes?descending=true&limit=1")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	var b RippleBalance
+	balance.ToJSON(&b)
+
+	balanceFloat, err = strconv.ParseFloat(b.Balance_changes[0].Final_balance, 64)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return
+
 }

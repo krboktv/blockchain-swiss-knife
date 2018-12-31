@@ -1,10 +1,10 @@
 package stellar
 
 import (
+	"fmt"
+	"github.com/imroc/req"
 	"github.com/krboktv/blockchain-swiss-knife/stellar/keypair"
 	"github.com/sirupsen/logrus"
-	"github.com/imroc/req"
-	"fmt"
 	"strconv"
 )
 
@@ -27,7 +27,7 @@ func GenerateKey() (*KeyPair, error) {
 	return &KeyPair{pair.Seed(), pair.Address()}, nil
 }
 
-func GetBalance(address string)(balanceFloat float64){
+func GetBalance(address string) (balanceFloat float64) {
 
 	type StellarBalance struct {
 		Balances []struct {
@@ -48,15 +48,15 @@ func GetBalance(address string)(balanceFloat float64){
 
 	var stellarBalance string
 
-	for _, j := range b.Balances{
-		if j.Asset_type == "native"{
+	for _, j := range b.Balances {
+		if j.Asset_type == "native" {
 
 			stellarBalance = j.Balance
 		}
 	}
 
-	balanceFloat,err = strconv.ParseFloat(stellarBalance,64)
-	if err != nil{
+	balanceFloat, err = strconv.ParseFloat(stellarBalance, 64)
+	if err != nil {
 		fmt.Println(err)
 	}
 

@@ -5,8 +5,8 @@ import (
 )
 
 func GenerateKey() (prvtKey *moneroutil.Key) {
-    prvtKey = moneroutil.RandomScalar()
-    return
+	prvtKey = moneroutil.RandomScalar()
+	return
 }
 
 func GetPublicKey(key moneroutil.Key) (pubKey *moneroutil.Key) {

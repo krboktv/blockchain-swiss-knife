@@ -32,9 +32,12 @@ func main() {
 }
 
 func eth() {
+
 	privateKey, _ := ethereum.GenerateKey()
 	publicKey := ethereum.GetPublicKey(privateKey)
 	address := ethereum.GetAddress(privateKey)
+
+	balanceTest := ethereum.GetBalance("0x343295B49522CFc38aF517c58eBB78565C42Ed95")
 
 	fmt.Println("---Ethereum---")
 	fmt.Print("Private Key: ")
@@ -45,16 +48,17 @@ func eth() {
 	fmt.Println(hex.EncodeToString(address))
 	fmt.Println("Account for balance test: 0x343295B49522CFc38aF517c58eBB78565C42Ed95")
 	fmt.Print("Test Balance: ")
-	fmt.Println(ethereum.GetBalance("0x343295B49522CFc38aF517c58eBB78565C42Ed95"))
+	fmt.Println(balanceTest)
 	fmt.Println("---Ethereum---")
-
 }
 
 func btc() {
+
 	privateKey, _ := bitcoin.GenerateKey()
 	publicKey := bitcoin.GetPublicKey(privateKey)
 	address, _ := bitcoin.GetAddress(privateKey)
 
+	balanceTest := bitcoin.GetBalance("18bXSCSXiTD3DB3XEz851VpB4ZK49rkprT")
 	fmt.Println("---Bitcoin---")
 	fmt.Print("Private Key: ")
 	fmt.Println(hex.EncodeToString(privateKey))
@@ -64,14 +68,17 @@ func btc() {
 	fmt.Println(string(address))
 	fmt.Println("Account for balance test: 18bXSCSXiTD3DB3XEz851VpB4ZK49rkprT")
 	fmt.Print("Test Balance: ")
-	fmt.Println(bitcoin.GetBalance("18bXSCSXiTD3DB3XEz851VpB4ZK49rkprT"))
+	fmt.Println(balanceTest)
 	fmt.Println("---Bitcoin---")
 }
 
 func dash_() {
+
 	privateKey, _ := dash.GenerateKey()
 	publicKey := dash.GetPublicKey(privateKey)
 	address, _ := dash.GetAddress(privateKey)
+
+	balanceTest := dash.GetBalance("XkNPrBSJtrHZUvUqb3JF4g5rMB3uzaJfEL")
 
 	fmt.Println("---Dash---")
 	fmt.Print("Private Key: ")
@@ -82,11 +89,12 @@ func dash_() {
 	fmt.Println(string(address))
 	fmt.Println("Account for balance test: XkNPrBSJtrHZUvUqb3JF4g5rMB3uzaJfEL")
 	fmt.Print("Test Balance: ")
-	fmt.Println(dash.GetBalance("XkNPrBSJtrHZUvUqb3JF4g5rMB3uzaJfEL"))
+	fmt.Println(balanceTest)
 	fmt.Println("---Dash---")
 }
 
 func xrp() {
+
 	seed := []byte("sspmdvhjCgmasqzg9a6HW6rvYLEoD")
 	seedFromExistingPassphrase, _ := ripple.GenerateKeyFromPassphrase([]byte("masterpassphrase"))
 	childAccount, _ := ripple.GetChildAccount(seedFromExistingPassphrase)
@@ -95,6 +103,8 @@ func xrp() {
 	publicKeyFromPrivateKey := ripple.GetPublicKeyFromPrivateKey(pvk)
 	address, _ := ripple.GetAddress(seed)
 	addressFromPrivateKey, _ := ripple.GetAddressFromPrivateKey(pvk)
+
+	balanceTest := ripple.GetBalance("r3kmLJN5D28dHuH8vZNUZpMC43pEHpaocV")
 
 	fmt.Println("---Ripple---")
 	//fmt.Print("Seed: ")
@@ -111,34 +121,39 @@ func xrp() {
 	fmt.Println(string(address))
 	fmt.Print("Address From Private Key: ")
 	fmt.Println(string(addressFromPrivateKey))
+	fmt.Println("Account for balance test: rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn")
+	fmt.Print("Test Balance: ")
+	fmt.Println(balanceTest)
 	fmt.Println("---Ripple---")
 }
 
 func stellar() {
-	fmt.Println("---Stellar---")
-
 	x, err := st.GenerateKey()
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
-	balance := st.GetBalance("GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
+	balanceTest := st.GetBalance("GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
+
+	fmt.Println("---Stellar---")
 	fmt.Print("Seed phrase: ")
 	fmt.Println(x.Seed)
 	fmt.Print("Address: ")
 	fmt.Println(x.Address)
 	fmt.Println("Account for balance test: GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
 	fmt.Print("Test Balance: ")
-	fmt.Println(balance)
+	fmt.Println(balanceTest)
 	fmt.Println("---Stellar---")
-
 }
 
 func btg() {
+
 	privateKey, _ := bitcoinGold.GenerateKey()
 	publicKey := bitcoinGold.GetPublicKey(privateKey)
 	address, _ := bitcoinGold.GetAddress(privateKey)
+
+	balanceTest := bitcoinGold.GetBalance("GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U")
 
 	fmt.Println("---BitcoinGold---")
 	fmt.Print("Private Key: ")
@@ -149,7 +164,7 @@ func btg() {
 	fmt.Println(string(address))
 	fmt.Println("Account for balance test: GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U")
 	fmt.Print("Test Balance: ")
-	fmt.Println(bitcoinGold.GetBalance("GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U"))
+	fmt.Println(balanceTest)
 	fmt.Println("---BitcoinGold---")
 }
 

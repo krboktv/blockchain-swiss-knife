@@ -1,13 +1,13 @@
 package ethereum
 
 import (
-	"github.com/krboktv/blockchain-swiss-knife/utils"
+	"context"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"context"
+	"github.com/krboktv/blockchain-swiss-knife/utils"
 	"log"
-	"strconv"
 	"math"
+	"strconv"
 )
 
 func GenerateKey() ([]byte, error) {
@@ -23,7 +23,7 @@ func GetAddress(key []byte) []byte {
 	return utils.Keccak256(pbk[1:])[12:32]
 }
 
-func GetBalance(address string)(balanceFloat float64){
+func GetBalance(address string) (balanceFloat float64) {
 
 	client, err := ethclient.Dial("https://mainnet.infura.io")
 	if err != nil {

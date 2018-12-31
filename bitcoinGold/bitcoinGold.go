@@ -1,9 +1,9 @@
 package bitcoinGold
 
 import (
-	"github.com/krboktv/blockchain-swiss-knife/utils"
-	"github.com/imroc/req"
 	"fmt"
+	"github.com/imroc/req"
+	"github.com/krboktv/blockchain-swiss-knife/utils"
 	"strconv"
 )
 
@@ -26,13 +26,13 @@ func GetAddress(key []byte) ([]byte, error) {
 	return utils.EncodeToBase58(utils.EncodeBitcoin, step5)
 }
 
-func GetBalance(address string)(balanceFloat float64){
-	balance, err := req.Get( "https://explorer.bitcoingold.org/insight-api/addr/" + address + "/balance")
+func GetBalance(address string) (balanceFloat float64) {
+	balance, err := req.Get("https://explorer.bitcoingold.org/insight-api/addr/" + address + "/balance")
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	balanceFloat, _ = strconv.ParseFloat(balance.String(),64)
+	balanceFloat, _ = strconv.ParseFloat(balance.String(), 64)
 
 	balanceFloat *= 0.00000001
 
