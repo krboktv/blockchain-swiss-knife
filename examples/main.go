@@ -104,7 +104,7 @@ func xrp() {
 	address, _ := ripple.GetAddress(seed)
 	addressFromPrivateKey, _ := ripple.GetAddressFromPrivateKey(pvk)
 
-	balanceTest := ripple.GetBalance("r3kmLJN5D28dHuH8vZNUZpMC43pEHpaocV")
+	balanceTest := ripple.GetBalance("rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn")
 
 	fmt.Println("---Ripple---")
 	//fmt.Print("Seed: ")
