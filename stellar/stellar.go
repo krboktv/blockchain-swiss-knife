@@ -7,6 +7,7 @@ import (
 	"github.com/imroc/req"
 	"github.com/sirupsen/logrus"
 	"github.com/stellar/go/build"
+	"github.com/stellar/go/clients/horizon"
 	"github.com/stellar/go/keypair"
 )
 
@@ -92,4 +93,13 @@ func CreateTransaction(from, to, amount string) (txeB64 string) {
 	}
 
 	return
+}
+
+func SendRawTx(blob string) int32 {
+
+	resp, err := horizon.DefaultPublicNetClient.SubmitTransaction(blob)
+	if err != nil {
+		panic(err)
+	}
+	return resp.Ledger
 }
