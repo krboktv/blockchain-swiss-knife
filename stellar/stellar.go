@@ -5,9 +5,9 @@ import (
 	"strconv"
 
 	"github.com/imroc/req"
-	"github.com/stellar/go/keypair"
 	"github.com/sirupsen/logrus"
 	"github.com/stellar/go/build"
+	"github.com/stellar/go/keypair"
 )
 
 type KeyPair struct {
