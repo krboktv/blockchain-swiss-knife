@@ -2,10 +2,12 @@ package stellar
 
 import (
 	"fmt"
-	"github.com/imroc/req"
-	"github.com/krboktv/blockchain-swiss-knife/stellar/keypair"
-	"github.com/sirupsen/logrus"
 	"strconv"
+
+	"github.com/imroc/req"
+	"github.com/stellar/go/keypair"
+	"github.com/sirupsen/logrus"
+	"github.com/stellar/go/build"
 )
 
 type KeyPair struct {
@@ -58,6 +60,35 @@ func GetBalance(address string) (balanceFloat float64) {
 	balanceFloat, err = strconv.ParseFloat(stellarBalanceString, 64)
 	if err != nil {
 		fmt.Println(err)
+	}
+
+	return
+}
+
+// Needs to be tested
+func CreateTransaction(from, to, amount string) (txeB64 string) {
+
+	tx, err := build.Transaction(
+		build.SourceAccount{AddressOrSeed: from},
+		build.PublicNetwork,
+		//b.AutoSequence{SequenceProvider: horizon.DefaultPublicNetClient}, ???
+		build.Payment(
+			build.Destination{AddressOrSeed: to},
+			build.NativeAmount{Amount: amount},
+		),
+	)
+	if err != nil {
+		panic(err)
+	}
+
+	txe, err := tx.Sign(from)
+	if err != nil {
+		panic(err)
+	}
+
+	txeB64, err = txe.Base64()
+	if err != nil {
+		panic(err)
 	}
 
 	return

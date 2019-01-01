@@ -1,7 +1,7 @@
 package monero
 
 import (
-	"github.com/krboktv/blockchain-swiss-knife/utils/moneroutil"
+	"github.com/paxosglobal/moneroutil"
 )
 
 func GenerateKey() (prvtKey *moneroutil.Key) {
