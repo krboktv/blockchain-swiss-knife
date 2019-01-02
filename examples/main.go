@@ -43,8 +43,6 @@ func eth() {
 
 	balanceTest := ethereum.GetBalance("0x343295B49522CFc38aF517c58eBB78565C42Ed95")
 
-	// create raw tx
-
 	hexTxHash := ethereum.CreateRawTx("privateKey", "recipient", 1000)
 
 	fmt.Println("---Ethereum---")
@@ -128,8 +126,6 @@ func xrp() {
 	balanceTest := ripple.GetBalance("rUjAoB9tXmt5v1DifGnfbDT6WRTX67PXvq")
 
 	fmt.Println("---Ripple---")
-	//fmt.Print("Seed: ")
-	//fmt.Println(string(seed))
 	fmt.Print("Seed from existing passphrase: ")
 	fmt.Println(string(seedFromExistingPassphrase))
 	fmt.Print("PrivateKey From Seed: ")
