@@ -4,15 +4,19 @@ import (
 	"context"
 	"crypto/ecdsa"
 	"encoding/hex"
+	"fmt"
+	"log"
+	"math"
+	"math/big"
+	"strconv"
+	"sync"
+
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/krboktv/blockchain-swiss-knife/utils"
-	"log"
-	"math"
-	"math/big"
-	"strconv"
+	"github.com/onrik/ethrpc"
 )
 
 func GenerateKey() ([]byte, error) {
@@ -102,4 +106,53 @@ func CreateRawTx(senderPrivateKey, recipient string, amount int64) (rawTxHex str
 	rawTxHex = hex.EncodeToString(rawTxBytes)
 
 	return
+}
+
+// Balance by addresses list
+
+type Data struct {
+	sync.Mutex
+	balances map[string]float64
+}
+
+func New() *Data {
+	return &Data{
+		balances: make(map[string]float64),
+	}
+}
+
+func (ds *Data) set(key string, value float64) {
+	ds.balances[key] = value
+}
+
+func (ds *Data) Set(key string, value float64) {
+	ds.Lock()
+	defer ds.Unlock()
+	ds.set(key, value)
+}
+
+func worker(wg *sync.WaitGroup, addr string, r *Data) {
+	defer wg.Done()
+	ethClient := ethrpc.New("https://mainnet.infura.io")
+	balance, err := ethClient.EthGetBalance(addr, "latest")
+	if err != nil {
+		fmt.Println(err)
+	}
+	floatBalance, _ := strconv.ParseFloat(balance.String(), 64)
+	ethBalance := floatBalance / math.Pow(10, 18)
+	r.Set(addr, ethBalance)
+}
+
+func GetBalanceForMultipleAdresses(addr []string) map[string]float64 {
+
+	r := New()
+	var wg sync.WaitGroup
+
+	for i := 0; i < len(addr); i++ {
+		wg.Add(1)
+		go worker(&wg, addr[i], r)
+	}
+	wg.Wait()
+
+	return r.balances
 }
