@@ -1,1 +1,1 @@
-# github.com/stellar/go
+# https://github.com/stellar/go
