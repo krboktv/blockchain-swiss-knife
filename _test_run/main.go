@@ -28,6 +28,7 @@ func main() {
 	btg()
 	fmt.Println("\n")
 	//xmr()
+	eth()
 }
 
 func eth() {
@@ -37,8 +38,6 @@ func eth() {
 	address := ethereum.GetAddress(privateKey)
 
 	balanceTest := ethereum.GetBalance("0x343295B49522CFc38aF517c58eBB78565C42Ed95")
-
-	hexTxHash := ethereum.CreateRawTx("privateKey", "recipient", 1000)
 
 	fmt.Println("---Ethereum---")
 	fmt.Print("Private Key: ")
@@ -50,9 +49,6 @@ func eth() {
 	fmt.Println("Account for balance test: 0x343295B49522CFc38aF517c58eBB78565C42Ed95")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
-	fmt.Println("Create Raw TX")
-	fmt.Print("txHex:")
-	fmt.Println(hexTxHash)
 	fmt.Println("---Ethereum---")
 }
 
