@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/paxosglobal/moneroutil"
-	"fmt"
 	"encoding/hex"
+	"fmt"
+	"github.com/paxosglobal/moneroutil"
 )
 
-func main(){
+func main() {
 	prvtKey := moneroutil.RandomScalar()
 	fmt.Print("Private:")
 	fmt.Println(hex.EncodeToString(prvtKey.Serialize()))
