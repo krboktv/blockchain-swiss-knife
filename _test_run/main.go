@@ -3,8 +3,6 @@ package main
 import (
 	"encoding/hex"
 	"fmt"
-	"os"
-
 	"github.com/krboktv/blockchain-swiss-knife/bitcoinGold"
 
 	"encoding/json"
@@ -145,27 +143,21 @@ func xrp() {
 }
 
 func stellar() {
-	x, err := st.GenerateKey()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+
 
 	balanceTest := st.GetBalance("GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
 
-	tx := st.CreateTransaction("SCRUYGFG76UPX3EIUWGPIQPQDPD24XPR3RII5BD53DYPKZJGG43FL5HI", "GA3A7AD7ZR4PIYW6A52SP6IK7UISESICPMMZVJGNUTVIZ5OUYOPBTK6X", "0.1")
-
 	fmt.Println("---Stellar---")
-	fmt.Print("Seed phrase: ")
-	fmt.Println(x.Seed)
-	fmt.Print("Address: ")
-	fmt.Println(x.Address)
+	//fmt.Print("Seed phrase: ")
+	//fmt.Println(x.Seed)
+	//fmt.Print("Address: ")
+	//fmt.Println(x.Address)
 	fmt.Println("Account for balance test: GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
-	fmt.Println("(Needs to be tested)")
-	fmt.Print("Raw tx:")
-	fmt.Println(tx)
+	//fmt.Println("(Needs to be tested)")
+	//fmt.Print("Raw tx:")
+	//fmt.Println(tx)
 	fmt.Println("---Stellar---")
 }
 
