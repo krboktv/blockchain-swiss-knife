@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/hex"
 	"fmt"
+
 	"github.com/krboktv/blockchain-swiss-knife/bitcoinGold"
 
 	st "../stellar"
@@ -32,11 +33,9 @@ func main() {
 }
 
 func eth() {
-
 	privateKey, _ := ethereum.GenerateKey()
 	publicKey := ethereum.GetPublicKey(privateKey)
 	address := ethereum.GetAddress(privateKey)
-
 	balanceTest := ethereum.GetBalance("0x343295B49522CFc38aF517c58eBB78565C42Ed95")
 
 	fmt.Println("---Ethereum---")
@@ -53,11 +52,9 @@ func eth() {
 }
 
 func btc() {
-
 	privateKey, _ := bitcoin.GenerateKey()
 	publicKey := bitcoin.GetPublicKey(privateKey)
 	address, _ := bitcoin.GetAddress(privateKey)
-
 	balanceTest := bitcoin.GetBalance("18bXSCSXiTD3DB3XEz851VpB4ZK49rkprT")
 
 	fmt.Println("---Bitcoin---")
@@ -74,11 +71,9 @@ func btc() {
 }
 
 func dash_() {
-
 	privateKey, _ := dash.GenerateKey()
 	publicKey := dash.GetPublicKey(privateKey)
 	address, _ := dash.GetAddress(privateKey)
-
 	balanceTest := dash.GetBalance("XkNPrBSJtrHZUvUqb3JF4g5rMB3uzaJfEL")
 
 	fmt.Println("---Dash---")
@@ -95,7 +90,6 @@ func dash_() {
 }
 
 func xrp() {
-
 	seed := []byte("sspmdvhjCgmasqzg9a6HW6rvYLEoD")
 	seedFromExistingPassphrase, _ := ripple.GenerateKeyFromPassphrase([]byte("masterpassphrase"))
 	childAccount, _ := ripple.GetChildAccount(seedFromExistingPassphrase)
@@ -104,7 +98,6 @@ func xrp() {
 	publicKeyFromPrivateKey := ripple.GetPublicKeyFromPrivateKey(pvk)
 	address, _ := ripple.GetAddress(seed)
 	addressFromPrivateKey, _ := ripple.GetAddressFromPrivateKey(pvk)
-
 	balanceTest := ripple.GetBalance("rUjAoB9tXmt5v1DifGnfbDT6WRTX67PXvq")
 
 	fmt.Println("---Ripple---")
@@ -127,8 +120,6 @@ func xrp() {
 }
 
 func stellar() {
-
-
 	balanceTest := st.GetBalance("GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
 
 	fmt.Println("---Stellar---")
@@ -139,11 +130,9 @@ func stellar() {
 }
 
 func btg() {
-
 	privateKey, _ := bitcoinGold.GenerateKey()
 	publicKey := bitcoinGold.GetPublicKey(privateKey)
 	address, _ := bitcoinGold.GetAddress(privateKey)
-
 	balanceTest := bitcoinGold.GetBalance("GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U")
 
 	fmt.Println("---BitcoinGold---")
