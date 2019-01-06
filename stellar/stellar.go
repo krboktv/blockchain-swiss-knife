@@ -42,5 +42,3 @@ func GetBalance(address string) (balanceFloat float64) {
 
 	return
 }
-
-

@@ -1,0 +1,2 @@
+ - https://github.com/FiloSottile/zcash-mini
+ - https://github.com/blackkeyboard/zgenerate

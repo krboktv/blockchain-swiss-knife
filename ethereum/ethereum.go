@@ -49,7 +49,6 @@ func GetBalance(address string) (balanceFloat float64) {
 	return
 }
 
-
 // Balance by addresses list
 
 type Data struct {

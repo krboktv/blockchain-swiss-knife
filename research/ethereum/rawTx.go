@@ -1,16 +1,16 @@
 package main
 
 import (
-	"crypto/ecdsa"
-	"math/big"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/core/types"
-	"encoding/hex"
-	"log"
 	"context"
+	"crypto/ecdsa"
+	"encoding/hex"
 	"fmt"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/ethereum/go-ethereum/ethclient"
+	"log"
+	"math/big"
 )
 
 func CreateRawTx(senderPrivateKey, recipient string, amount int64) (rawTxHex string) {
@@ -67,10 +67,9 @@ func CreateRawTx(senderPrivateKey, recipient string, amount int64) (rawTxHex str
 	return
 }
 
-
-func main(){
+func main() {
 
 	hexTxHash := CreateRawTx("1501762ac9e3acf71a5cb3c2fb6ef9a95dc71b9153ac13c4a887e94ebf867e41", "0x6ec594c39c9fcfa0cd969e5b1f9a8f42f5612295", 1000)
 	fmt.Println(hexTxHash)
 
-	}
+}

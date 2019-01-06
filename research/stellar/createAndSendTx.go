@@ -1,9 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"github.com/stellar/go/build"
 	"github.com/stellar/go/clients/horizon"
-	"fmt"
 )
 
 // Needs to be tested
@@ -44,7 +44,7 @@ func SendRawTx(blob string) int32 {
 	return resp.Ledger
 }
 
-func main(){
+func main() {
 	tx := CreateTransaction("SCRUYGFG76UPX3EIUWGPIQPQDPD24XPR3RII5BD53DYPKZJGG43FL5HI", "GA3A7AD7ZR4PIYW6A52SP6IK7UISESICPMMZVJGNUTVIZ5OUYOPBTK6X", "0.1")
 	fmt.Println(tx)
 }
