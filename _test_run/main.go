@@ -16,12 +16,9 @@ import (
 
 func main() {
 
-	//eth()
-	//fmt.Print("\n")
-
 	btc()
 	fmt.Print("\n")
-	//dash_()
+	dash_()
 	fmt.Print("\n")
 	xrp()
 	fmt.Println("\n")
@@ -29,7 +26,6 @@ func main() {
 	fmt.Println("\n")
 	btg()
 	fmt.Println("\n")
-	//xmr()
 	eth()
 	fmt.Println("\n")
 	tether()
@@ -152,9 +148,7 @@ func btg() {
 	fmt.Println("---BitcoinGold---")
 }
 
-
-
-func tether(){
+func tether() {
 	privateKey, _ := t.GenerateKey()
 	publicKey := t.GetPublicKey(privateKey)
 	address, _ := t.GetAddress(privateKey)
@@ -167,8 +161,4 @@ func tether(){
 	fmt.Print("Address: ")
 	fmt.Println(string(address))
 	fmt.Println("---Tether---")
-}
-
-// monero
-func xmr() {
 }
