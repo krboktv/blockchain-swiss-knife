@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	// zcash-mini
+
 	fmt.Println("ZCash-mini")
 	key := zcash.GenerateKey()
 	fmt.Println(hex.EncodeToString(key))
@@ -23,7 +23,6 @@ func main() {
 	fmt.Println()
 	fmt.Println()
 
-	// zgenerate
 	fmt.Println("ZGenerate")
 	wallet, err := zcashcrypto.CreateWallet(false, 1)
 	if err != nil {
