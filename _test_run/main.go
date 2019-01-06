@@ -11,6 +11,7 @@ import (
 	"github.com/krboktv/blockchain-swiss-knife/dash"
 	"github.com/krboktv/blockchain-swiss-knife/ethereum"
 	"github.com/krboktv/blockchain-swiss-knife/ripple"
+	t "github.com/krboktv/blockchain-swiss-knife/tether"
 )
 
 func main() {
@@ -30,6 +31,9 @@ func main() {
 	fmt.Println("\n")
 	//xmr()
 	eth()
+	fmt.Println("\n")
+	tether()
+
 }
 
 func eth() {
@@ -148,5 +152,23 @@ func btg() {
 	fmt.Println("---BitcoinGold---")
 }
 
+
+
+func tether(){
+	privateKey, _ := t.GenerateKey()
+	publicKey := t.GetPublicKey(privateKey)
+	address, _ := t.GetAddress(privateKey)
+
+	fmt.Println("---Tether---")
+	fmt.Print("Private Key: ")
+	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Print("Public Key: ")
+	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Print("Address: ")
+	fmt.Println(string(address))
+	fmt.Println("---Tether---")
+}
+
+// monero
 func xmr() {
 }
