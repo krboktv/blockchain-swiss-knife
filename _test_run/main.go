@@ -152,6 +152,7 @@ func tether() {
 	privateKey, _ := t.GenerateKey()
 	publicKey := t.GetPublicKey(privateKey)
 	address, _ := t.GetAddress(privateKey)
+	balance := t.GetBalance("3NrEXrB9qAxXYfRt6jKtBD8QzoU2qtNWDR")
 
 	fmt.Println("---Tether---")
 	fmt.Print("Private Key: ")
@@ -160,5 +161,8 @@ func tether() {
 	fmt.Println(hex.EncodeToString(publicKey))
 	fmt.Print("Address: ")
 	fmt.Println(string(address))
+	fmt.Println("Account for balance test: 3NrEXrB9qAxXYfRt6jKtBD8QzoU2qtNWDR")
+	fmt.Print("Balance:")
+	fmt.Println(balance)
 	fmt.Println("---Tether---")
 }
