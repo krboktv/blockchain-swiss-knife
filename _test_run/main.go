@@ -12,6 +12,7 @@ import (
 	"github.com/krboktv/blockchain-swiss-knife/ethereum"
 	"github.com/krboktv/blockchain-swiss-knife/ripple"
 	t "github.com/krboktv/blockchain-swiss-knife/tether"
+	"github.com/krboktv/blockchain-swiss-knife/ethereumClassic"
 )
 
 func main() {
@@ -27,6 +28,8 @@ func main() {
 	btg()
 	fmt.Println("\n")
 	eth()
+	fmt.Println("\n")
+	etc()
 	fmt.Println("\n")
 	tether()
 
@@ -50,6 +53,27 @@ func eth() {
 	fmt.Println(balanceTest)
 	fmt.Println("---Ethereum---")
 }
+
+func etc(){
+	privateKey, _ := ethereumClassic.GenerateKey()
+	publicKey := ethereumClassic.GetPublicKey(privateKey)
+	address := ethereumClassic.GetAddress(privateKey)
+	balanceTest := ethereumClassic.GetBalance("0xDf7D7e053933b5cC24372f878c90E62dADAD5d42")
+
+	fmt.Println("---EthereumClassic---")
+	fmt.Print("Private Key: ")
+	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Print("Public Key: ")
+	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Print("Address: ")
+	fmt.Println(hex.EncodeToString(address))
+	fmt.Println("Account for balance test: 0xDf7D7e053933b5cC24372f878c90E62dADAD5d42")
+	fmt.Print("Test Balance: ")
+	fmt.Println(balanceTest)
+	fmt.Println("---EthereumClassic---")
+
+}
+
 
 func btc() {
 	privateKey, _ := bitcoin.GenerateKey()
