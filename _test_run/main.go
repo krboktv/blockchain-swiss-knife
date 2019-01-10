@@ -71,7 +71,6 @@ func etc(){
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
 	fmt.Println("---EthereumClassic---")
-
 }
 
 
