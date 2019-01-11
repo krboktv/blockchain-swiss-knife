@@ -13,6 +13,7 @@ import (
 	"github.com/krboktv/blockchain-swiss-knife/ripple"
 	t "github.com/krboktv/blockchain-swiss-knife/tether"
 	"github.com/krboktv/blockchain-swiss-knife/ethereumClassic"
+	"../zcash"
 )
 
 func main() {
@@ -32,6 +33,8 @@ func main() {
 	etc()
 	fmt.Println("\n")
 	tether()
+	fmt.Println("\n")
+	_zcash()
 
 }
 
@@ -188,4 +191,19 @@ func tether() {
 	fmt.Print("Balance:")
 	fmt.Println(balance)
 	fmt.Println("---Tether---")
+}
+
+func _zcash() {
+	privateKey, _ := zcash.GenerateKey()
+	publicKey := zcash.GetPublicKey(privateKey)
+	address, _ := zcash.GetAddress(privateKey)
+
+	fmt.Println("---ZCash---")
+	fmt.Print("Private Key: ")
+	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Print("Public Key: ")
+	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Print("Address: ")
+	fmt.Println(string(address))
+	fmt.Println("---ZCash---")
 }
