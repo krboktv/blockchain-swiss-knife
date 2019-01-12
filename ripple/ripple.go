@@ -45,7 +45,7 @@ func GetFamilyGenerator(seed []byte) (*RootAccount, error) {
 }
 
 func (ra *RootAccount) GetPublicKey() []byte {
-	return utils.GetPublicKey(ra.GetPrivateKey())
+	return utils.GetPublicKeySecp256k1(ra.GetPrivateKey())
 }
 
 func (ra *RootAccount) GetPrivateKey() []byte {
@@ -89,7 +89,7 @@ func (ca *ChildAccount) GetPrivateKey() []byte {
 }
 
 func (ca *ChildAccount) GetPublicKey() []byte {
-	return utils.GetPublicKey(ca.GetPrivateKey())
+	return utils.GetPublicKeySecp256k1(ca.GetPrivateKey())
 }
 
 func GenerateKeyFromPassphrase(passphrase []byte) ([]byte, error) {
@@ -106,11 +106,11 @@ func GetPublicKey(seed []byte) ([]byte, error) {
 
 func getPublicKeyFromSeed(key []byte) ([]byte, error) {
 	childAccount, err := GetChildAccount(key)
-	return utils.GetPublicKey(childAccount.GetPrivateKey()), err
+	return utils.GetPublicKeySecp256k1(childAccount.GetPrivateKey()), err
 }
 
 func GetPublicKeyFromPrivateKey(pvk []byte) []byte {
-	return utils.GetPublicKey(pvk)
+	return utils.GetPublicKeySecp256k1(pvk)
 }
 
 func GetAddress(seed []byte) ([]byte, error) {

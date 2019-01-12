@@ -7,11 +7,11 @@ import (
 )
 
 func GenerateKey() ([]byte, error) {
-	return utils.GenerateKey()
+	return utils.GenerateKeySecp256k1()
 }
 
 func GetPublicKey(key []byte) []byte {
-	return utils.GetPublicKey(key)
+	return utils.GetPublicKeySecp256k1(key)
 }
 
 func GetAddress(key []byte) ([]byte, error) {

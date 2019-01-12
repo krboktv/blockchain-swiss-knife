@@ -12,18 +12,19 @@ import (
 
 const EncodeRipple = "rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz"
 const EncodeBitcoin = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+const EncodeStellar = "gsphnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCr65jkm8oFqi1tuvAxyz"
 const CurveOrder = "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141"
 
-func GenerateKey() ([]byte, error) {
+func GenerateKeySecp256k1() ([]byte, error) {
 	pvk, err := btckey.GenerateKey(rand.Reader)
 	return pvk.D.Bytes(), err
 }
 
-func GetPublicKeyUncompressed(key []byte) []byte {
+func GetPublicKeyUncompressedSecp256k1(key []byte) []byte {
 	return secp256k1.UncompressedPubkeyFromSeckey(key)
 }
 
-func GetPublicKey(key []byte) []byte {
+func GetPublicKeySecp256k1(key []byte) []byte {
 	return secp256k1.PubkeyFromSeckey(key)
 }
 

@@ -12,11 +12,11 @@ import (
 )
 
 func GenerateKey() ([]byte, error) {
-	return utils.GenerateKey()
+	return utils.GenerateKeySecp256k1()
 }
 
 func GetPublicKey(key []byte) []byte {
-	return utils.GetPublicKeyUncompressed(key)
+	return utils.GetPublicKeyUncompressedSecp256k1(key)
 }
 
 func GetAddress(key []byte) []byte {
