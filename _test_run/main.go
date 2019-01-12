@@ -18,23 +18,23 @@ import (
 
 func main() {
 
-	btc()
-	fmt.Print("\n")
-	dash_()
-	fmt.Print("\n")
-	xrp()
-	fmt.Println("\n")
+	//btc()
+	//fmt.Print("\n")
+	//dash_()
+	//fmt.Print("\n")
+	//xrp()
+	//fmt.Println("\n")
 	stellar()
-	fmt.Println("\n")
-	btg()
-	fmt.Println("\n")
-	eth()
-	fmt.Println("\n")
-	etc()
-	fmt.Println("\n")
-	tether()
-	fmt.Println("\n")
-	_zcash()
+	//fmt.Println("\n")
+	//btg()
+	//fmt.Println("\n")
+	//eth()
+	//fmt.Println("\n")
+	//etc()
+	//fmt.Println("\n")
+	//tether()
+	//fmt.Println("\n")
+	//_zcash()
 
 }
 
@@ -146,9 +146,13 @@ func xrp() {
 }
 
 func stellar() {
+	seed, _ := st.GenerateKey()
 	balanceTest := st.GetBalance("GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
 
+
 	fmt.Println("---Stellar---")
+	fmt.Println("Random seed")
+	fmt.Println(string(seed))
 	fmt.Println("Account for balance test: GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
