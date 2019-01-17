@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	Mainnet = []byte{0x00}
+	MainnetBTC = []byte{0x00}
 )
 
 type Bitcoin struct {
@@ -30,7 +30,7 @@ func (btc *Bitcoin) GetAddress(key []byte) ([]byte, error) {
 	pbk := btc.GetPublicKey(key)
 	step1 := utils.SHA256(pbk)
 	step2 := utils.RIPEMD160(step1)
-	step3 := append(Mainnet, step2...)
+	step3 := append(MainnetBTC, step2...)
 	step4 := utils.DoubleSHA256(step3)
 	step5 := append(step3, step4[:4]...)
 	return utils.EncodeToBase58(utils.EncodeBitcoin, step5)

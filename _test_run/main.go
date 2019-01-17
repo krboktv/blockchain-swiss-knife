@@ -5,21 +5,25 @@ import (
 	"github.com/krboktv/blockchain-swiss-knife/zcash"
 	"encoding/hex"
 	"fmt"
-	"github.com/krboktv/blockchain-swiss-knife/dash"
 	"github.com/krboktv/blockchain-swiss-knife/ethereum"
 	"github.com/krboktv/blockchain-swiss-knife/ethereumClassic"
 	"github.com/krboktv/blockchain-swiss-knife/ripple"
 	t "github.com/krboktv/blockchain-swiss-knife/tether"
-	"github.com/krboktv/blockchain-swiss-knife/knife"
+	. "github.com/krboktv/blockchain-swiss-knife/Knife"
 )
 
-var swissKnife knife.Knife
+var swissKnife Knife
 
 func main() {
-	fmt.Println("Blockchain Swiss Knife")
+	fmt.Println("To the moon!")
+}
+
+func init(){
 	btc()
 	fmt.Println("\n")
 	btg()
+	fmt.Println("\n")
+	dash_()
 	fmt.Println("\n")
 }
 
@@ -63,7 +67,6 @@ func etc(){
 
 
 func btc() {
-
 	swissKnife.Bitcoin.GenerateAndSet()
 	balanceTest := swissKnife.Bitcoin.GetBalance("18bXSCSXiTD3DB3XEz851VpB4ZK49rkprT")
 
@@ -81,18 +84,16 @@ func btc() {
 }
 
 func dash_() {
-	privateKey, _ := dash.GenerateKey()
-	publicKey := dash.GetPublicKey(privateKey)
-	address, _ := dash.GetAddress(privateKey)
-	balanceTest := dash.GetBalance("XkNPrBSJtrHZUvUqb3JF4g5rMB3uzaJfEL")
+	swissKnife.Dash.GenerateAndSet()
+	balanceTest := swissKnife.Dash.GetBalance("XkNPrBSJtrHZUvUqb3JF4g5rMB3uzaJfEL")
 
 	fmt.Println("---Dash---")
 	fmt.Print("Private Key: ")
-	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Println(swissKnife.Dash.PrivateKey)
 	fmt.Print("Public Key: ")
-	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Println(swissKnife.Dash.PublicKey)
 	fmt.Print("Dash Address: ")
-	fmt.Println(string(address))
+	fmt.Println(swissKnife.Dash.Address)
 	fmt.Println("Account for balance test: XkNPrBSJtrHZUvUqb3JF4g5rMB3uzaJfEL")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
