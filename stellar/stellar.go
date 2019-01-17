@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	VersionByteSeed = 18 << 3
+	VersionByteSeed      = 18 << 3
 	VersionByteAccountID = 6 << 3
 )
 
@@ -35,7 +35,7 @@ func GenerateKeyFromPassphrase(passphrase []byte) ([]byte, error) {
 	return generateSeedFromPassphrase(passphrase)
 }
 
-func GetPublicKeyFromPrivateKey(pvk []byte) ([]byte) {
+func GetPublicKeyFromPrivateKey(pvk []byte) []byte {
 	return utils.GetPublicKeyEd25519(pvk)
 }
 
@@ -134,7 +134,7 @@ func Decode(src string) ([]byte, error) {
 	}
 
 	vp := raw[:len(raw)-2]
-	payload := raw[1:len(raw)-2]
+	payload := raw[1 : len(raw)-2]
 
 	checksum := raw[len(raw)-2:]
 

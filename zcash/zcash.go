@@ -13,7 +13,7 @@ func GetPublicKey(key []byte) []byte {
 }
 
 func GetAddress(key []byte) ([]byte, error) {
-	networkByte := []byte{0x1C,0xB8}
+	networkByte := []byte{0x1C, 0xB8}
 	pbk := GetPublicKey(key)
 	step1 := utils.SHA256(pbk)
 	step2 := utils.RIPEMD160(step1)

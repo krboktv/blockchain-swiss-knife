@@ -1,39 +1,26 @@
 package main
 
 import (
-	st "../stellar"
-	"../zcash"
+	st "github.com/krboktv/blockchain-swiss-knife/stellar"
+	"github.com/krboktv/blockchain-swiss-knife/zcash"
 	"encoding/hex"
 	"fmt"
-	"github.com/krboktv/blockchain-swiss-knife/bitcoin"
-	"github.com/krboktv/blockchain-swiss-knife/bitcoinGold"
 	"github.com/krboktv/blockchain-swiss-knife/dash"
 	"github.com/krboktv/blockchain-swiss-knife/ethereum"
 	"github.com/krboktv/blockchain-swiss-knife/ethereumClassic"
 	"github.com/krboktv/blockchain-swiss-knife/ripple"
 	t "github.com/krboktv/blockchain-swiss-knife/tether"
+	"github.com/krboktv/blockchain-swiss-knife/knife"
 )
 
+var swissKnife knife.Knife
+
 func main() {
-
+	fmt.Println("Blockchain Swiss Knife")
 	btc()
-	fmt.Print("\n")
-	//dash_()
-	//fmt.Print("\n")
-	//xrp()
-	//fmt.Println("\n")
-	//stellar()
-	//fmt.Println("\n")
-	//btg()
-	//fmt.Println("\n")
-	//eth()
-	//fmt.Println("\n")
-	//etc()
-	//fmt.Println("\n")
-	//tether()
-	//fmt.Println("\n")
-	//_zcash()
-
+	fmt.Println("\n")
+	btg()
+	fmt.Println("\n")
 }
 
 func eth() {
@@ -76,21 +63,17 @@ func etc(){
 
 
 func btc() {
-	var btc bitcoin.Bitcoin
 
-	err := btc.GenerateFull()
-	if err != nil{
-		fmt.Println(err)
-	}
-	balanceTest := btc.GetBalance("18bXSCSXiTD3DB3XEz851VpB4ZK49rkprT")
+	swissKnife.Bitcoin.GenerateAndSet()
+	balanceTest := swissKnife.Bitcoin.GetBalance("18bXSCSXiTD3DB3XEz851VpB4ZK49rkprT")
 
 	fmt.Println("---Bitcoin---")
 	fmt.Print("Private Key: ")
-	fmt.Println(btc.PrivateKey)
+	fmt.Println(swissKnife.Bitcoin.PrivateKey)
 	fmt.Print("Public Key: ")
-	fmt.Println(btc.PublicKey)
+	fmt.Println(swissKnife.Bitcoin.PublicKey)
 	fmt.Print("Address: ")
-	fmt.Println(btc.Address)
+	fmt.Println(swissKnife.Bitcoin.Address)
 	fmt.Println("Account for balance test: 18bXSCSXiTD3DB3XEz851VpB4ZK49rkprT")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
@@ -178,18 +161,17 @@ func stellar() {
 }
 
 func btg() {
-	privateKey, _ := bitcoinGold.GenerateKey()
-	publicKey := bitcoinGold.GetPublicKey(privateKey)
-	address, _ := bitcoinGold.GetAddress(privateKey)
-	balanceTest := bitcoinGold.GetBalance("GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U")
+	swissKnife.BitcoinGold.GenerateAndSet()
+
+	balanceTest := swissKnife.BitcoinGold.GetBalance("GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U")
 
 	fmt.Println("---BitcoinGold---")
 	fmt.Print("Private Key: ")
-	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Println(swissKnife.BitcoinGold.PrivateKey)
 	fmt.Print("Public Key: ")
-	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Println(swissKnife.BitcoinGold.PublicKey)
 	fmt.Print("Address: ")
-	fmt.Println(string(address))
+	fmt.Println(swissKnife.BitcoinGold.Address)
 	fmt.Println("Account for balance test: GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
