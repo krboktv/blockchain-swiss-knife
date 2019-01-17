@@ -2,53 +2,49 @@ package main
 
 import (
 	st "github.com/krboktv/blockchain-swiss-knife/stellar"
-	"github.com/krboktv/blockchain-swiss-knife/zcash"
 	"encoding/hex"
 	"fmt"
-	"github.com/krboktv/blockchain-swiss-knife/bitcoin"
-	"github.com/krboktv/blockchain-swiss-knife/bitcoinGold"
-	"github.com/krboktv/blockchain-swiss-knife/dash"
-	"github.com/krboktv/blockchain-swiss-knife/ethereum"
-	"github.com/krboktv/blockchain-swiss-knife/ethereumClassic"
-	"github.com/krboktv/blockchain-swiss-knife/ripple"
-	t "github.com/krboktv/blockchain-swiss-knife/tether"
+	. "github.com/krboktv/blockchain-swiss-knife/Knife"
 )
 
-func main() {
+var swissKnife Knife
 
+func main() {
+	fmt.Println("To the moon!")
+}
+
+func init(){
 	btc()
-	fmt.Print("\n")
-	dash_()
-	fmt.Print("\n")
-	xrp()
-	fmt.Println("\n")
-	stellar()
 	fmt.Println("\n")
 	btg()
+	fmt.Println("\n")
+	dash_()
 	fmt.Println("\n")
 	eth()
 	fmt.Println("\n")
 	etc()
 	fmt.Println("\n")
+	xrp()
+	fmt.Println("\n")
+	stellar()
+	fmt.Println("\n")
 	tether()
 	fmt.Println("\n")
 	_zcash()
-
 }
 
 func eth() {
-	privateKey, _ := ethereum.GenerateKey()
-	publicKey := ethereum.GetPublicKey(privateKey)
-	address := ethereum.GetAddress(privateKey)
-	balanceTest := ethereum.GetBalance("0x343295B49522CFc38aF517c58eBB78565C42Ed95")
+	swissKnife.Ethereum.GenerateAndSet()
+
+	balanceTest := swissKnife.Ethereum.GetBalance("0x343295B49522CFc38aF517c58eBB78565C42Ed95")
 
 	fmt.Println("---Ethereum---")
 	fmt.Print("Private Key: ")
-	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Println(swissKnife.Ethereum.PrivateKey)
 	fmt.Print("Public Key: ")
-	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Println(swissKnife.Ethereum.PublicKey)
 	fmt.Print("Address: ")
-	fmt.Println(hex.EncodeToString(address))
+	fmt.Println(swissKnife.Ethereum.Address)
 	fmt.Println("Account for balance test: 0x343295B49522CFc38aF517c58eBB78565C42Ed95")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
@@ -56,18 +52,16 @@ func eth() {
 }
 
 func etc(){
-	privateKey, _ := ethereumClassic.GenerateKey()
-	publicKey := ethereumClassic.GetPublicKey(privateKey)
-	address := ethereumClassic.GetAddress(privateKey)
-	balanceTest := ethereumClassic.GetBalance("0xDf7D7e053933b5cC24372f878c90E62dADAD5d42")
+	swissKnife.EthereumClassic.GenerateAndSet()
+	balanceTest := swissKnife.EthereumClassic.GetBalance("0xDf7D7e053933b5cC24372f878c90E62dADAD5d42")
 
 	fmt.Println("---EthereumClassic---")
 	fmt.Print("Private Key: ")
-	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Println(swissKnife.EthereumClassic.PrivateKey)
 	fmt.Print("Public Key: ")
-	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Println(swissKnife.EthereumClassic.PublicKey)
 	fmt.Print("Address: ")
-	fmt.Println(hex.EncodeToString(address))
+	fmt.Println(swissKnife.EthereumClassic.Address)
 	fmt.Println("Account for balance test: 0xDf7D7e053933b5cC24372f878c90E62dADAD5d42")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
@@ -76,18 +70,16 @@ func etc(){
 
 
 func btc() {
-	privateKey, _ := bitcoin.GenerateKey()
-	publicKey := bitcoin.GetPublicKey(privateKey)
-	address, _ := bitcoin.GetAddress(privateKey)
-	balanceTest := bitcoin.GetBalance("18bXSCSXiTD3DB3XEz851VpB4ZK49rkprT")
+	swissKnife.Bitcoin.GenerateAndSet()
+	balanceTest := swissKnife.Bitcoin.GetBalance("18bXSCSXiTD3DB3XEz851VpB4ZK49rkprT")
 
 	fmt.Println("---Bitcoin---")
 	fmt.Print("Private Key: ")
-	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Println(swissKnife.Bitcoin.PrivateKey)
 	fmt.Print("Public Key: ")
-	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Println(swissKnife.Bitcoin.PublicKey)
 	fmt.Print("Address: ")
-	fmt.Println(string(address))
+	fmt.Println(swissKnife.Bitcoin.Address)
 	fmt.Println("Account for balance test: 18bXSCSXiTD3DB3XEz851VpB4ZK49rkprT")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
@@ -95,18 +87,16 @@ func btc() {
 }
 
 func dash_() {
-	privateKey, _ := dash.GenerateKey()
-	publicKey := dash.GetPublicKey(privateKey)
-	address, _ := dash.GetAddress(privateKey)
-	balanceTest := dash.GetBalance("XkNPrBSJtrHZUvUqb3JF4g5rMB3uzaJfEL")
+	swissKnife.Dash.GenerateAndSet()
+	balanceTest := swissKnife.Dash.GetBalance("XkNPrBSJtrHZUvUqb3JF4g5rMB3uzaJfEL")
 
 	fmt.Println("---Dash---")
 	fmt.Print("Private Key: ")
-	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Println(swissKnife.Dash.PrivateKey)
 	fmt.Print("Public Key: ")
-	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Println(swissKnife.Dash.PublicKey)
 	fmt.Print("Dash Address: ")
-	fmt.Println(string(address))
+	fmt.Println(swissKnife.Dash.Address)
 	fmt.Println("Account for balance test: XkNPrBSJtrHZUvUqb3JF4g5rMB3uzaJfEL")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
@@ -114,15 +104,24 @@ func dash_() {
 }
 
 func xrp() {
+
+	balanceTest := swissKnife.Ripple.GetBalance("rUjAoB9tXmt5v1DifGnfbDT6WRTX67PXvq")
+
 	seed := []byte("sspmdvhjCgmasqzg9a6HW6rvYLEoD")
-	seedFromExistingPassphrase, _ := ripple.GenerateKeyFromPassphrase([]byte("masterpassphrase"))
-	childAccount, _ := ripple.GetChildAccount(seedFromExistingPassphrase)
-	publicKey, _ := ripple.GetPublicKey(seedFromExistingPassphrase)
+
+	seedFromExistingPassphrase, _ := swissKnife.Ripple.GenerateKeyFromPassphrase([]byte("masterpassphrase"))
+
+	childAccount, _ := swissKnife.Ripple.GetChildAccount(seedFromExistingPassphrase)
+
+	publicKey, _ := swissKnife.Ripple.GetPublicKey(seedFromExistingPassphrase)
+
 	pvk, _ := hex.DecodeString("1ACAAEDECE405B2A958212629E16F2EB46B153EEE94CDD350FDEFF52795525B7")
-	publicKeyFromPrivateKey := ripple.GetPublicKeyFromPrivateKey(pvk)
-	address, _ := ripple.GetAddress(seed)
-	addressFromPrivateKey, _ := ripple.GetAddressFromPrivateKey(pvk)
-	balanceTest := ripple.GetBalance("rUjAoB9tXmt5v1DifGnfbDT6WRTX67PXvq")
+
+	publicKeyFromPrivateKey := swissKnife.Ripple.GetPublicKeyFromPrivateKey(pvk)
+
+	address, _ := swissKnife.Ripple.GetAddress(seed)
+
+	addressFromPrivateKey, _ := swissKnife.Ripple.GetAddressFromPrivateKey(pvk)
 
 	fmt.Println("---Ripple---")
 	fmt.Print("Seed from existing passphrase: ")
@@ -144,18 +143,25 @@ func xrp() {
 }
 
 func stellar() {
-	seed, _ := st.GenerateKey()
-	seedFromExistingPhrase, _ := st.GenerateKeyFromPassphrase([]byte("masterpassphrase"))
-	pvk, _ := st.GetPrivateKeyFromSeed(seed)
-	pvkHex := hex.EncodeToString(pvk)
-	pbk := st.GetPublicKeyFromPrivateKey(pvk)
-	pubHex := hex.EncodeToString(pbk)
-	address, _ := st.GetAddress(seed)
-	addressFromPvk, _ := st.GetAddressFromPrivateKey(pvk)
+	// first check
+	seed, _ := swissKnife.Stellar.GenerateKey()
 
+	seedFromExistingPhrase, _ := swissKnife.Stellar.GenerateKeyFromPassphrase([]byte("masterpassphrase"))
+	pvk, _ := swissKnife.Stellar.GetPrivateKeyFromSeed(seed)
+	pvkHex := hex.EncodeToString(pvk)
+	pbk := swissKnife.Stellar.GetPublicKeyFromPrivateKey(pvk)
+	pubHex := hex.EncodeToString(pbk)
+	address, _ := swissKnife.Stellar.GetAddress(seed)
+	addressFromPvk, _ := swissKnife.Stellar.GetAddressFromPrivateKey(pvk)
+
+
+	// second
+	swissKnife.Stellar.GenerateAndSet()
 	balanceTest := st.GetBalance("GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
 
+
 	fmt.Println("---Stellar---")
+	fmt.Println("First: ")
 	fmt.Print("Random seed: ")
 	fmt.Println(string(seed))
 	fmt.Print("Seed from existing passphrase: ")
@@ -168,6 +174,17 @@ func stellar() {
 	fmt.Println(string(address))
 	fmt.Print("Address from private key: ")
 	fmt.Println(string(addressFromPvk))
+	fmt.Println("\n\n")
+
+	fmt.Println("Second: ")
+	fmt.Print("Random seed: ")
+	fmt.Println(swissKnife.Stellar.Seed)
+	fmt.Print("Private key from seed: ")
+	fmt.Println(swissKnife.Stellar.PrivateKey)
+	fmt.Print("Public key from private key: ")
+	fmt.Println(swissKnife.Stellar.PublicKey)
+	fmt.Print("Address from private key: ")
+	fmt.Println(swissKnife.Stellar.Address)
 	fmt.Println("Account for balance test: GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
@@ -175,18 +192,17 @@ func stellar() {
 }
 
 func btg() {
-	privateKey, _ := bitcoinGold.GenerateKey()
-	publicKey := bitcoinGold.GetPublicKey(privateKey)
-	address, _ := bitcoinGold.GetAddress(privateKey)
-	balanceTest := bitcoinGold.GetBalance("GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U")
+	swissKnife.BitcoinGold.GenerateAndSet()
+
+	balanceTest := swissKnife.BitcoinGold.GetBalance("GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U")
 
 	fmt.Println("---BitcoinGold---")
 	fmt.Print("Private Key: ")
-	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Println(swissKnife.BitcoinGold.PrivateKey)
 	fmt.Print("Public Key: ")
-	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Println(swissKnife.BitcoinGold.PublicKey)
 	fmt.Print("Address: ")
-	fmt.Println(string(address))
+	fmt.Println(swissKnife.BitcoinGold.Address)
 	fmt.Println("Account for balance test: GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
@@ -194,18 +210,16 @@ func btg() {
 }
 
 func tether() {
-	privateKey, _ := t.GenerateKey()
-	publicKey := t.GetPublicKey(privateKey)
-	address, _ := t.GetAddress(privateKey)
-	balance := t.GetBalance("3NrEXrB9qAxXYfRt6jKtBD8QzoU2qtNWDR")
+	swissKnife.Tether.GenerateAndSet()
+	balance := swissKnife.Tether.GetBalance("3NrEXrB9qAxXYfRt6jKtBD8QzoU2qtNWDR")
 
 	fmt.Println("---Tether---")
 	fmt.Print("Private Key: ")
-	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Println(swissKnife.Tether.PrivateKey)
 	fmt.Print("Public Key: ")
-	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Println(swissKnife.Tether.PublicKey)
 	fmt.Print("Address: ")
-	fmt.Println(string(address))
+	fmt.Println(swissKnife.Tether.Address)
 	fmt.Println("Account for balance test: 3NrEXrB9qAxXYfRt6jKtBD8QzoU2qtNWDR")
 	fmt.Print("Balance:")
 	fmt.Println(balance)
@@ -213,16 +227,14 @@ func tether() {
 }
 
 func _zcash() {
-	privateKey, _ := zcash.GenerateKey()
-	publicKey := zcash.GetPublicKey(privateKey)
-	address, _ := zcash.GetAddress(privateKey)
+	swissKnife.ZCash.GenerateAndSet()
 
 	fmt.Println("---ZCash---")
 	fmt.Print("Private Key: ")
-	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Println(swissKnife.ZCash.PrivateKey)
 	fmt.Print("Public Key: ")
-	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Println(swissKnife.ZCash.PublicKey)
 	fmt.Print("Address: ")
-	fmt.Println(string(address))
+	fmt.Println(swissKnife.ZCash.Address)
 	fmt.Println("---ZCash---")
 }

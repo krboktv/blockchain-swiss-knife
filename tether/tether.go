@@ -1,31 +1,61 @@
 package tether
 
 import (
+	"encoding/hex"
 	"fmt"
 	"github.com/imroc/req"
 	"github.com/krboktv/blockchain-swiss-knife/utils"
 )
 
-func GenerateKey() ([]byte, error) {
+type Tether struct {
+	PrivateKey string
+	PublicKey  string
+	Address    string
+}
+
+var (
+	MainnetTether = []byte{0x00}
+)
+
+func (tether *Tether) GenerateKey() ([]byte, error) {
 	return utils.GenerateKeySecp256k1()
 }
 
-func GetPublicKey(key []byte) []byte {
+func (tether *Tether) GetPublicKey(key []byte) []byte {
 	return utils.GetPublicKeySecp256k1(key)
 }
 
-func GetAddress(key []byte) ([]byte, error) {
-	networkByte := []byte{0x00}
-	pbk := GetPublicKey(key)
+func (tether *Tether) GetAddress(key []byte) ([]byte, error) {
+	pbk := tether.GetPublicKey(key)
 	step1 := utils.SHA256(pbk)
 	step2 := utils.RIPEMD160(step1)
-	step3 := append(networkByte, step2...)
+	step3 := append(MainnetTether, step2...)
 	step4 := utils.DoubleSHA256(step3)
 	step5 := append(step3, step4[:4]...)
 	return utils.EncodeToBase58(utils.EncodeBitcoin, step5)
 }
 
-func GetBalance(address string) (balanceStr string) {
+func (tether *Tether) GenerateAndSet() {
+	privateKey, err := tether.GenerateKey()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	publicKey := tether.GetPublicKey(privateKey)
+	address, err := tether.GetAddress(privateKey)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	tether.PrivateKey = hex.EncodeToString(privateKey)
+	tether.PublicKey = hex.EncodeToString(publicKey)
+	tether.Address = string(address)
+
+}
+
+func (tether *Tether) GetBalance(address string) (balanceStr string) {
 
 	type TetherBalance struct {
 		Balance []struct {
@@ -86,6 +116,7 @@ func GetBalance(address string) (balanceStr string) {
 	reqForBalance, err := req.Post("https://api.omniexplorer.info/v1/address/addr/", header, param)
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
 	var tb TetherBalance

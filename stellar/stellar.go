@@ -4,12 +4,20 @@ import (
 	"bytes"
 	"crypto/rand"
 	"encoding/binary"
+	"encoding/hex"
 	"fmt"
 	"github.com/imroc/req"
 	"github.com/krboktv/blockchain-swiss-knife/utils"
 	"github.com/stellar/go/crc16"
 	"strconv"
 )
+
+type Stellar struct {
+	Seed       string
+	PrivateKey string
+	PublicKey  string
+	Address    string
+}
 
 const (
 	VersionByteSeed      = 18 << 3
@@ -18,11 +26,11 @@ const (
 
 type VersionByte byte
 
-func GenerateKey() ([]byte, error) {
+func (stellar *Stellar) GenerateKey() ([]byte, error) {
 	return generateRandomSeed()
 }
 
-func GetPrivateKeyFromSeed(seed []byte) ([]byte, error) {
+func (stellar *Stellar) GetPrivateKeyFromSeed(seed []byte) ([]byte, error) {
 	seed, err := MustDecode(seed)
 	if err != nil {
 		return nil, err
@@ -31,45 +39,75 @@ func GetPrivateKeyFromSeed(seed []byte) ([]byte, error) {
 	return pvk, err
 }
 
-func GenerateKeyFromPassphrase(passphrase []byte) ([]byte, error) {
+func (stellar *Stellar) GenerateKeyFromPassphrase(passphrase []byte) ([]byte, error) {
 	return generateSeedFromPassphrase(passphrase)
 }
 
-func GetPublicKeyFromPrivateKey(pvk []byte) []byte {
+func (stellar *Stellar) GetPublicKeyFromPrivateKey(pvk []byte) []byte {
 	return utils.GetPublicKeyEd25519(pvk)
 }
 
-func GetAddress(seed []byte) ([]byte, error) {
-	return getAddressFromSeed(seed)
+func (stellar *Stellar) GetAddress(seed []byte) ([]byte, error) {
+	return stellar.getAddressFromSeed(seed)
 }
 
-func GetAddressFromPublicKey(pbk []byte) ([]byte, error) {
+func (stellar *Stellar) GetAddressFromPublicKey(pbk []byte) ([]byte, error) {
 	return Encode(VersionByteAccountID, pbk)
 }
 
-func GetAddressFromPrivateKey(pvt []byte) ([]byte, error) {
-	pbk := GetPublicKeyFromPrivateKey(pvt)
+func (stellar *Stellar) GetAddressFromPrivateKey(pvt []byte) ([]byte, error) {
+	pbk := stellar.GetPublicKeyFromPrivateKey(pvt)
 	return Encode(VersionByteAccountID, pbk)
 }
 
-func GetPublicKey(seed []byte) ([]byte, error) {
-	return getPublicKeyFromSeed(seed)
+func (stellar *Stellar) GetPublicKey(seed []byte) ([]byte, error) {
+	return stellar.getPublicKeyFromSeed(seed)
 }
 
-func getPublicKeyFromSeed(seed []byte) ([]byte, error) {
+func (stellar *Stellar) getPublicKeyFromSeed(seed []byte) ([]byte, error) {
 	seed, _ = MustDecode(seed)
 	_, pbk, err := utils.GenerateKeyEd25519FromSeed(seed)
 	return pbk, err
 }
 
-func getAddressFromSeed(seed []byte) ([]byte, error) {
+func (stellar *Stellar) getAddressFromSeed(seed []byte) ([]byte, error) {
 	seed, _ = MustDecode(seed)
 	_, pbk, err := utils.GenerateKeyEd25519FromSeed(seed)
 	if err != nil {
 		return nil, err
 	}
-	return GetAddressFromPublicKey(pbk)
+	return stellar.GetAddressFromPublicKey(pbk)
 }
+
+func (stellar *Stellar) GenerateAndSet() {
+
+	seed, err := stellar.GenerateKey()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	privateKey, err := stellar.GetPrivateKeyFromSeed(seed)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	publicKey := stellar.GetPublicKeyFromPrivateKey(privateKey)
+
+	address, err := stellar.GetAddressFromPublicKey(publicKey)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	stellar.Seed = string(seed)
+	stellar.PrivateKey = hex.EncodeToString(privateKey)
+	stellar.PublicKey = hex.EncodeToString(publicKey)
+	stellar.Address = string(address)
+}
+
+//
 
 func generateRandomPassphrase() ([]byte, error) {
 	phrase := make([]byte, 32)

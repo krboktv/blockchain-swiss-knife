@@ -11,6 +11,12 @@ import (
 	"strconv"
 )
 
+type Ripple struct {
+	PrivateKey string
+	PublicKey  string
+	Address    string
+}
+
 type RootAccount struct {
 	privateKey []byte
 }
@@ -53,7 +59,7 @@ func (ra *RootAccount) GetPrivateKey() []byte {
 }
 
 // TODO: Add custom account index
-func GetChildAccount(seed []byte) (*ChildAccount, error) {
+func (xrp *Ripple) GetChildAccount(seed []byte) (*ChildAccount, error) {
 	accountIndex := []byte{0x00, 0x00, 0x00, 0x00}
 
 	curveOrderBytes, _ := hex.DecodeString(utils.CurveOrder)
@@ -92,42 +98,42 @@ func (ca *ChildAccount) GetPublicKey() []byte {
 	return utils.GetPublicKeySecp256k1(ca.GetPrivateKey())
 }
 
-func GenerateKeyFromPassphrase(passphrase []byte) ([]byte, error) {
+func (xrp *Ripple) GenerateKeyFromPassphrase(passphrase []byte) ([]byte, error) {
 	return generateSeedFromPassphrase(passphrase)
 }
 
-func GenerateKey() ([]byte, error) {
-	return generateRandomSeed()
+func (xrp *Ripple) GenerateKey() ([]byte, error) {
+	return xrp.generateRandomSeed()
 }
 
-func GetPublicKey(seed []byte) ([]byte, error) {
-	return getPublicKeyFromSeed(seed)
+func (xrp *Ripple) GetPublicKey(seed []byte) ([]byte, error) {
+	return xrp.getPublicKeyFromSeed(seed)
 }
 
-func getPublicKeyFromSeed(key []byte) ([]byte, error) {
-	childAccount, err := GetChildAccount(key)
+func (xrp *Ripple) getPublicKeyFromSeed(key []byte) ([]byte, error) {
+	childAccount, err := xrp.GetChildAccount(key)
 	return utils.GetPublicKeySecp256k1(childAccount.GetPrivateKey()), err
 }
 
-func GetPublicKeyFromPrivateKey(pvk []byte) []byte {
+func (xrp *Ripple) GetPublicKeyFromPrivateKey(pvk []byte) []byte {
 	return utils.GetPublicKeySecp256k1(pvk)
 }
 
-func GetAddress(seed []byte) ([]byte, error) {
-	return getAddressFromSeed(seed)
+func (xrp *Ripple) GetAddress(seed []byte) ([]byte, error) {
+	return xrp.getAddressFromSeed(seed)
 }
 
-func getAddressFromSeed(seed []byte) ([]byte, error) {
-	childAccount, err := GetChildAccount(seed)
+func (xrp *Ripple) getAddressFromSeed(seed []byte) ([]byte, error) {
+	childAccount, err := xrp.GetChildAccount(seed)
 	if err != nil {
 		return nil, err
 	}
-	return GetAddressFromPrivateKey(childAccount.GetPrivateKey())
+	return xrp.GetAddressFromPrivateKey(childAccount.GetPrivateKey())
 }
 
-func GetAddressFromPrivateKey(key []byte) ([]byte, error) {
+func (xrp *Ripple) GetAddressFromPrivateKey(key []byte) ([]byte, error) {
 	networkByte := []byte{0x00}
-	pbk := GetPublicKeyFromPrivateKey(key)
+	pbk := xrp.GetPublicKeyFromPrivateKey(key)
 	step1 := utils.SHA256(pbk)
 	step2 := utils.RIPEMD160(step1)
 	step3 := append(networkByte, step2...)
@@ -138,7 +144,7 @@ func GetAddressFromPrivateKey(key []byte) ([]byte, error) {
 	return utils.EncodeToBase58(utils.EncodeRipple, step7)
 }
 
-func generateRandomPassphrase() ([]byte, error) {
+func (xrp *Ripple) generateRandomPassphrase() ([]byte, error) {
 	phrase := make([]byte, 16)
 	rnd, err := rand.Read(phrase)
 	if err != nil {
@@ -148,8 +154,8 @@ func generateRandomPassphrase() ([]byte, error) {
 	return phrase, nil
 }
 
-func generateRandomSeed() ([]byte, error) {
-	passphrase, err := generateRandomPassphrase()
+func (xrp *Ripple) generateRandomSeed() ([]byte, error) {
+	passphrase, err := xrp.generateRandomPassphrase()
 	if err != nil {
 		return nil, err
 	}
@@ -171,7 +177,33 @@ func encodeSeedToBase58Check(seed []byte) ([]byte, error) {
 	return step4, err
 }
 
-func GetBalance(address string) (balanceFloat float64) {
+//func(xrp *Ripple) SetPassphrase(passphrase string){
+//	xrp.Passphrase = []byte(passphrase)
+//}
+//
+//func(xrp *Ripple) GetPassphrase() string {
+//	return string(xrp.Passphrase)
+//}
+
+// Generate acc
+// todo: add GenerateAndSet
+
+//func (xrp *Ripple) GenerateAndSet(passphrase string) {
+//	seedFromExistingPassphrase, err := xrp.GenerateKeyFromPassphrase([]byte(passphrase))
+//	if err != nil{
+//		fmt.Println(err)
+//		return
+//	}
+//
+//	publicKey,err := xrp.GetPublicKey(seedFromExistingPassphrase)
+//	if err != nil{
+//		fmt.Println(err)
+//		return
+//	}
+//
+//}
+
+func (xrp *Ripple) GetBalance(address string) (balanceFloat float64) {
 
 	type RippleBalance struct {
 		Balances []struct {
