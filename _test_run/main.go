@@ -28,6 +28,7 @@ func init(){
 	fmt.Println("\n")
 	xrp()
 	fmt.Println("\n")
+	stellar()
 }
 
 func eth() {
@@ -135,18 +136,25 @@ func xrp() {
 }
 
 func stellar() {
-	seed, _ := st.GenerateKey()
-	seedFromExistingPhrase, _ := st.GenerateKeyFromPassphrase([]byte("masterpassphrase"))
-	pvk, _ := st.GetPrivateKeyFromSeed(seed)
+	// first check
+	seed, _ := swissKnife.Stellar.GenerateKey()
+	seedFromExistingPhrase, _ := swissKnife.Stellar.GenerateKeyFromPassphrase([]byte("masterpassphrase"))
+	pvk, _ := swissKnife.Stellar.GetPrivateKeyFromSeed(seed)
 	pvkHex := hex.EncodeToString(pvk)
-	pbk := st.GetPublicKeyFromPrivateKey(pvk)
+	pbk := swissKnife.Stellar.GetPublicKeyFromPrivateKey(pvk)
 	pubHex := hex.EncodeToString(pbk)
-	address, _ := st.GetAddress(seed)
-	addressFromPvk, _ := st.GetAddressFromPrivateKey(pvk)
+	address, _ := swissKnife.Stellar.GetAddress(seed)
+	addressFromPvk, _ := swissKnife.Stellar.GetAddressFromPrivateKey(pvk)
 
+
+	// second
+
+	swissKnife.Stellar.GenerateAndSet()
 	balanceTest := st.GetBalance("GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
 
+
 	fmt.Println("---Stellar---")
+	fmt.Println("First: ")
 	fmt.Print("Random seed: ")
 	fmt.Println(string(seed))
 	fmt.Print("Seed from existing passphrase: ")
@@ -159,6 +167,17 @@ func stellar() {
 	fmt.Println(string(address))
 	fmt.Print("Address from private key: ")
 	fmt.Println(string(addressFromPvk))
+
+	fmt.Println("\n\n")
+	fmt.Println("Second: ")
+	fmt.Print("Random seed: ")
+	fmt.Println(swissKnife.Stellar.Seed)
+	fmt.Print("Private key from seed: ")
+	fmt.Println(swissKnife.Stellar.PrivateKey)
+	fmt.Print("Public key from private key: ")
+	fmt.Println(swissKnife.Stellar.PublicKey)
+	fmt.Print("Address from private key: ")
+	fmt.Println(swissKnife.Stellar.Address)
 	fmt.Println("Account for balance test: GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)

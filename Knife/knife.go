@@ -7,6 +7,7 @@ import (
 	. "github.com/krboktv/blockchain-swiss-knife/ethereum"
 	. "github.com/krboktv/blockchain-swiss-knife/ethereumClassic"
 	. "github.com/krboktv/blockchain-swiss-knife/ripple"
+	. "github.com/krboktv/blockchain-swiss-knife/stellar"
 )
 
 type Knife struct {
@@ -16,4 +17,5 @@ type Knife struct {
 	Ethereum        Ethereum
 	EthereumClassic EthereumClassic
 	Ripple          Ripple
+	Stellar         Stellar
 }
