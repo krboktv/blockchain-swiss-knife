@@ -18,21 +18,21 @@ func main() {
 
 	btc()
 	fmt.Print("\n")
-	dash_()
-	fmt.Print("\n")
-	xrp()
-	fmt.Println("\n")
-	stellar()
-	fmt.Println("\n")
-	btg()
-	fmt.Println("\n")
-	eth()
-	fmt.Println("\n")
-	etc()
-	fmt.Println("\n")
-	tether()
-	fmt.Println("\n")
-	_zcash()
+	//dash_()
+	//fmt.Print("\n")
+	//xrp()
+	//fmt.Println("\n")
+	//stellar()
+	//fmt.Println("\n")
+	//btg()
+	//fmt.Println("\n")
+	//eth()
+	//fmt.Println("\n")
+	//etc()
+	//fmt.Println("\n")
+	//tether()
+	//fmt.Println("\n")
+	//_zcash()
 
 }
 
@@ -76,18 +76,21 @@ func etc(){
 
 
 func btc() {
-	privateKey, _ := bitcoin.GenerateKey()
-	publicKey := bitcoin.GetPublicKey(privateKey)
-	address, _ := bitcoin.GetAddress(privateKey)
-	balanceTest := bitcoin.GetBalance("18bXSCSXiTD3DB3XEz851VpB4ZK49rkprT")
+	var btc bitcoin.Bitcoin
+
+	err := btc.GenerateFull()
+	if err != nil{
+		fmt.Println(err)
+	}
+	balanceTest := btc.GetBalance("18bXSCSXiTD3DB3XEz851VpB4ZK49rkprT")
 
 	fmt.Println("---Bitcoin---")
 	fmt.Print("Private Key: ")
-	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Println(btc.PrivateKey)
 	fmt.Print("Public Key: ")
-	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Println(btc.PublicKey)
 	fmt.Print("Address: ")
-	fmt.Println(string(address))
+	fmt.Println(btc.Address)
 	fmt.Println("Account for balance test: 18bXSCSXiTD3DB3XEz851VpB4ZK49rkprT")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
