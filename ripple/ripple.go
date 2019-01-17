@@ -187,8 +187,21 @@ func encodeSeedToBase58Check(seed []byte) ([]byte, error) {
 
 // Generate acc
 // todo: add GenerateAndSet
-func (xrp *Ripple) GenerateAndSet() {
-}
+
+//func (xrp *Ripple) GenerateAndSet(passphrase string) {
+//	seedFromExistingPassphrase, err := xrp.GenerateKeyFromPassphrase([]byte(passphrase))
+//	if err != nil{
+//		fmt.Println(err)
+//		return
+//	}
+//
+//	publicKey,err := xrp.GetPublicKey(seedFromExistingPassphrase)
+//	if err != nil{
+//		fmt.Println(err)
+//		return
+//	}
+//
+//}
 
 func (xrp *Ripple) GetBalance(address string) (balanceFloat float64) {
 

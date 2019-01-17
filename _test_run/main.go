@@ -104,18 +104,23 @@ func dash_() {
 }
 
 func xrp() {
-	swissKnife.Ripple.GenerateAndSet()
 
 	balanceTest := swissKnife.Ripple.GetBalance("rUjAoB9tXmt5v1DifGnfbDT6WRTX67PXvq")
 
 	seed := []byte("sspmdvhjCgmasqzg9a6HW6rvYLEoD")
 
 	seedFromExistingPassphrase, _ := swissKnife.Ripple.GenerateKeyFromPassphrase([]byte("masterpassphrase"))
+
 	childAccount, _ := swissKnife.Ripple.GetChildAccount(seedFromExistingPassphrase)
+
 	publicKey, _ := swissKnife.Ripple.GetPublicKey(seedFromExistingPassphrase)
+
 	pvk, _ := hex.DecodeString("1ACAAEDECE405B2A958212629E16F2EB46B153EEE94CDD350FDEFF52795525B7")
+
 	publicKeyFromPrivateKey := swissKnife.Ripple.GetPublicKeyFromPrivateKey(pvk)
+
 	address, _ := swissKnife.Ripple.GetAddress(seed)
+
 	addressFromPrivateKey, _ := swissKnife.Ripple.GetAddressFromPrivateKey(pvk)
 
 	fmt.Println("---Ripple---")
@@ -140,6 +145,7 @@ func xrp() {
 func stellar() {
 	// first check
 	seed, _ := swissKnife.Stellar.GenerateKey()
+
 	seedFromExistingPhrase, _ := swissKnife.Stellar.GenerateKeyFromPassphrase([]byte("masterpassphrase"))
 	pvk, _ := swissKnife.Stellar.GetPrivateKeyFromSeed(seed)
 	pvkHex := hex.EncodeToString(pvk)
@@ -150,7 +156,6 @@ func stellar() {
 
 
 	// second
-
 	swissKnife.Stellar.GenerateAndSet()
 	balanceTest := st.GetBalance("GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
 
@@ -169,8 +174,8 @@ func stellar() {
 	fmt.Println(string(address))
 	fmt.Print("Address from private key: ")
 	fmt.Println(string(addressFromPvk))
-
 	fmt.Println("\n\n")
+
 	fmt.Println("Second: ")
 	fmt.Print("Random seed: ")
 	fmt.Println(swissKnife.Stellar.Seed)
