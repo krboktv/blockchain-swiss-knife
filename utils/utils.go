@@ -23,9 +23,9 @@ func GenerateKeySecp256k1() ([]byte, error) {
 	return pvk.D.Bytes(), err
 }
 
-func GenerateKeyEd25519() ([]byte, error) {
-	_, pvk, err := ed25519.GenerateKey(rand.Reader)
-	return pvk, err
+func GenerateKeyEd25519() ([]byte, []byte, error) {
+	pub, pvk, err := ed25519.GenerateKey(rand.Reader)
+	return pvk, pub, err
 }
 
 func GenerateKeyEd25519FromSeed(seed []byte) ([]byte, []byte, error) {
