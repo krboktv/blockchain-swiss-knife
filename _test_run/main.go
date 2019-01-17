@@ -2,10 +2,8 @@ package main
 
 import (
 	st "github.com/krboktv/blockchain-swiss-knife/stellar"
-	"github.com/krboktv/blockchain-swiss-knife/zcash"
 	"encoding/hex"
 	"fmt"
-	t "github.com/krboktv/blockchain-swiss-knife/tether"
 	. "github.com/krboktv/blockchain-swiss-knife/Knife"
 )
 
@@ -29,6 +27,10 @@ func init(){
 	xrp()
 	fmt.Println("\n")
 	stellar()
+	fmt.Println("\n")
+	tether()
+	fmt.Println("\n")
+	_zcash()
 }
 
 func eth() {
@@ -203,18 +205,16 @@ func btg() {
 }
 
 func tether() {
-	privateKey, _ := t.GenerateKey()
-	publicKey := t.GetPublicKey(privateKey)
-	address, _ := t.GetAddress(privateKey)
-	balance := t.GetBalance("3NrEXrB9qAxXYfRt6jKtBD8QzoU2qtNWDR")
+	swissKnife.Tether.GenerateAndSet()
+	balance := swissKnife.Tether.GetBalance("3NrEXrB9qAxXYfRt6jKtBD8QzoU2qtNWDR")
 
 	fmt.Println("---Tether---")
 	fmt.Print("Private Key: ")
-	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Println(swissKnife.Tether.PrivateKey)
 	fmt.Print("Public Key: ")
-	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Println(swissKnife.Tether.PublicKey)
 	fmt.Print("Address: ")
-	fmt.Println(string(address))
+	fmt.Println(swissKnife.Tether.Address)
 	fmt.Println("Account for balance test: 3NrEXrB9qAxXYfRt6jKtBD8QzoU2qtNWDR")
 	fmt.Print("Balance:")
 	fmt.Println(balance)
@@ -222,16 +222,14 @@ func tether() {
 }
 
 func _zcash() {
-	privateKey, _ := zcash.GenerateKey()
-	publicKey := zcash.GetPublicKey(privateKey)
-	address, _ := zcash.GetAddress(privateKey)
+	swissKnife.ZCash.GenerateAndSet()
 
 	fmt.Println("---ZCash---")
 	fmt.Print("Private Key: ")
-	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Println(swissKnife.ZCash.PrivateKey)
 	fmt.Print("Public Key: ")
-	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Println(swissKnife.ZCash.PublicKey)
 	fmt.Print("Address: ")
-	fmt.Println(string(address))
+	fmt.Println(swissKnife.ZCash.Address)
 	fmt.Println("---ZCash---")
 }
