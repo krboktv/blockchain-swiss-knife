@@ -5,8 +5,6 @@ import (
 	"github.com/krboktv/blockchain-swiss-knife/zcash"
 	"encoding/hex"
 	"fmt"
-	"github.com/krboktv/blockchain-swiss-knife/ethereumClassic"
-	"github.com/krboktv/blockchain-swiss-knife/ripple"
 	t "github.com/krboktv/blockchain-swiss-knife/tether"
 	. "github.com/krboktv/blockchain-swiss-knife/Knife"
 )
@@ -26,6 +24,10 @@ func init(){
 	fmt.Println("\n")
 	eth()
 	fmt.Println("\n")
+	etc()
+	fmt.Println("\n")
+	xrp()
+	fmt.Println("\n")
 }
 
 func eth() {
@@ -39,7 +41,7 @@ func eth() {
 	fmt.Print("Public Key: ")
 	fmt.Println(swissKnife.Ethereum.PublicKey)
 	fmt.Print("Address: ")
-	fmt.Println("0x" + swissKnife.Ethereum.Address)
+	fmt.Println(swissKnife.Ethereum.Address)
 	fmt.Println("Account for balance test: 0x343295B49522CFc38aF517c58eBB78565C42Ed95")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
@@ -47,18 +49,16 @@ func eth() {
 }
 
 func etc(){
-	privateKey, _ := ethereumClassic.GenerateKey()
-	publicKey := ethereumClassic.GetPublicKey(privateKey)
-	address := ethereumClassic.GetAddress(privateKey)
-	balanceTest := ethereumClassic.GetBalance("0xDf7D7e053933b5cC24372f878c90E62dADAD5d42")
+	swissKnife.EthereumClassic.GenerateAndSet()
+	balanceTest := swissKnife.EthereumClassic.GetBalance("0xDf7D7e053933b5cC24372f878c90E62dADAD5d42")
 
 	fmt.Println("---EthereumClassic---")
 	fmt.Print("Private Key: ")
-	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Println(swissKnife.EthereumClassic.PrivateKey)
 	fmt.Print("Public Key: ")
-	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Println(swissKnife.EthereumClassic.PublicKey)
 	fmt.Print("Address: ")
-	fmt.Println(hex.EncodeToString(address))
+	fmt.Println(swissKnife.EthereumClassic.Address)
 	fmt.Println("Account for balance test: 0xDf7D7e053933b5cC24372f878c90E62dADAD5d42")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
@@ -101,15 +101,19 @@ func dash_() {
 }
 
 func xrp() {
+	swissKnife.Ripple.GenerateAndSet()
+
+	balanceTest := swissKnife.Ripple.GetBalance("rUjAoB9tXmt5v1DifGnfbDT6WRTX67PXvq")
+
 	seed := []byte("sspmdvhjCgmasqzg9a6HW6rvYLEoD")
-	seedFromExistingPassphrase, _ := ripple.GenerateKeyFromPassphrase([]byte("masterpassphrase"))
-	childAccount, _ := ripple.GetChildAccount(seedFromExistingPassphrase)
-	publicKey, _ := ripple.GetPublicKey(seedFromExistingPassphrase)
+
+	seedFromExistingPassphrase, _ := swissKnife.Ripple.GenerateKeyFromPassphrase([]byte("masterpassphrase"))
+	childAccount, _ := swissKnife.Ripple.GetChildAccount(seedFromExistingPassphrase)
+	publicKey, _ := swissKnife.Ripple.GetPublicKey(seedFromExistingPassphrase)
 	pvk, _ := hex.DecodeString("1ACAAEDECE405B2A958212629E16F2EB46B153EEE94CDD350FDEFF52795525B7")
-	publicKeyFromPrivateKey := ripple.GetPublicKeyFromPrivateKey(pvk)
-	address, _ := ripple.GetAddress(seed)
-	addressFromPrivateKey, _ := ripple.GetAddressFromPrivateKey(pvk)
-	balanceTest := ripple.GetBalance("rUjAoB9tXmt5v1DifGnfbDT6WRTX67PXvq")
+	publicKeyFromPrivateKey := swissKnife.Ripple.GetPublicKeyFromPrivateKey(pvk)
+	address, _ := swissKnife.Ripple.GetAddress(seed)
+	addressFromPrivateKey, _ := swissKnife.Ripple.GetAddressFromPrivateKey(pvk)
 
 	fmt.Println("---Ripple---")
 	fmt.Print("Seed from existing passphrase: ")

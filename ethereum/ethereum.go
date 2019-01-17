@@ -45,7 +45,7 @@ func (eth *Ethereum) GenerateAndSet() {
 
 	eth.PrivateKey = hex.EncodeToString(privateKey)
 	eth.PublicKey = hex.EncodeToString(publicKey)
-	eth.Address = hex.EncodeToString(address)
+	eth.Address = "0x" + hex.EncodeToString(address)
 }
 
 func (eth *Ethereum) GetBalance(address string) (balanceFloat float64) {
