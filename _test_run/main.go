@@ -1,40 +1,38 @@
 package main
 
 import (
+	st "../stellar"
+	"../zcash"
 	"encoding/hex"
 	"fmt"
-
-	"github.com/krboktv/blockchain-swiss-knife/bitcoinGold"
-
-	st "../stellar"
 	"github.com/krboktv/blockchain-swiss-knife/bitcoin"
+	"github.com/krboktv/blockchain-swiss-knife/bitcoinGold"
 	"github.com/krboktv/blockchain-swiss-knife/dash"
 	"github.com/krboktv/blockchain-swiss-knife/ethereum"
+	"github.com/krboktv/blockchain-swiss-knife/ethereumClassic"
 	"github.com/krboktv/blockchain-swiss-knife/ripple"
 	t "github.com/krboktv/blockchain-swiss-knife/tether"
-	"github.com/krboktv/blockchain-swiss-knife/ethereumClassic"
-	"../zcash"
 )
 
 func main() {
 
-	//btc()
-	//fmt.Print("\n")
-	//dash_()
-	//fmt.Print("\n")
-	//xrp()
-	//fmt.Println("\n")
+	btc()
+	fmt.Print("\n")
+	dash_()
+	fmt.Print("\n")
+	xrp()
+	fmt.Println("\n")
 	stellar()
-	//fmt.Println("\n")
-	//btg()
-	//fmt.Println("\n")
-	//eth()
-	//fmt.Println("\n")
-	//etc()
-	//fmt.Println("\n")
-	//tether()
-	//fmt.Println("\n")
-	//_zcash()
+	fmt.Println("\n")
+	btg()
+	fmt.Println("\n")
+	eth()
+	fmt.Println("\n")
+	etc()
+	fmt.Println("\n")
+	tether()
+	fmt.Println("\n")
+	_zcash()
 
 }
 
@@ -147,12 +145,29 @@ func xrp() {
 
 func stellar() {
 	seed, _ := st.GenerateKey()
+	seedFromExistingPhrase, _ := st.GenerateKeyFromPassphrase([]byte("masterpassphrase"))
+	pvk, _ := st.GetPrivateKeyFromSeed(seed)
+	pvkHex := hex.EncodeToString(pvk)
+	pbk := st.GetPublicKeyFromPrivateKey(pvk)
+	pubHex := hex.EncodeToString(pbk)
+	address, _ := st.GetAddress(seed)
+	addressFromPvk, _ := st.GetAddressFromPrivateKey(pvk)
+
 	balanceTest := st.GetBalance("GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
 
-
 	fmt.Println("---Stellar---")
-	fmt.Println("Random seed")
+	fmt.Print("Random seed: ")
 	fmt.Println(string(seed))
+	fmt.Print("Seed from existing passphrase: ")
+	fmt.Println(string(seedFromExistingPhrase))
+	fmt.Print("Private key from seed: ")
+	fmt.Println(pvkHex)
+	fmt.Print("Public key from private key: ")
+	fmt.Println(pubHex)
+	fmt.Print("Address from seed: ")
+	fmt.Println(string(address))
+	fmt.Print("Address from private key: ")
+	fmt.Println(string(addressFromPvk))
 	fmt.Println("Account for balance test: GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
