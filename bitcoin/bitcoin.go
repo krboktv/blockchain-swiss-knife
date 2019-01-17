@@ -36,12 +36,12 @@ func (btc *Bitcoin) GetAddress(key []byte) ([]byte, error) {
 	return utils.EncodeToBase58(utils.EncodeBitcoin, step5)
 }
 
-func (btc *Bitcoin) GenerateAndSet() error {
+func (btc *Bitcoin) GenerateAndSet() {
 
 	privateKey, err := btc.GenerateKey()
 	if err != nil {
 		fmt.Println(err)
-		return err
+		return
 	}
 
 	publicKey := btc.GetPublicKey(privateKey)
@@ -49,14 +49,13 @@ func (btc *Bitcoin) GenerateAndSet() error {
 	address, err := btc.GetAddress(privateKey)
 	if err != nil {
 		fmt.Println(err)
-		return err
+		return
 	}
 
 	btc.PrivateKey = hex.EncodeToString(privateKey)
 	btc.PublicKey = hex.EncodeToString(publicKey)
 	btc.Address = string(address)
 
-	return nil
 }
 
 func (btc *Bitcoin) GetBalance(address string) (balanceFloat float64) {

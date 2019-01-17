@@ -36,11 +36,11 @@ func (dash *Dash) GetAddress(key []byte) ([]byte, error) {
 	return utils.EncodeToBase58(utils.EncodeBitcoin, step5)
 }
 
-func (dash *Dash) GenerateAndSet() error {
+func (dash *Dash) GenerateAndSet() {
 	privateKey, err := dash.GenerateKey()
 	if err != nil {
 		fmt.Println(err)
-		return err
+		return
 	}
 
 	publicKey := dash.GetPublicKey(privateKey)
@@ -48,14 +48,13 @@ func (dash *Dash) GenerateAndSet() error {
 	address, err := dash.GetAddress(privateKey)
 	if err != nil {
 		fmt.Println(err)
-		return err
+		return
 	}
 
 	dash.PrivateKey = hex.EncodeToString(privateKey)
 	dash.PublicKey = hex.EncodeToString(publicKey)
 	dash.Address = string(address)
 
-	return nil
 }
 
 func (dash *Dash) GetBalance(address string) (balanceFloat float64) {

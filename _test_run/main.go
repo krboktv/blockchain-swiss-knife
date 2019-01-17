@@ -5,7 +5,6 @@ import (
 	"github.com/krboktv/blockchain-swiss-knife/zcash"
 	"encoding/hex"
 	"fmt"
-	"github.com/krboktv/blockchain-swiss-knife/ethereum"
 	"github.com/krboktv/blockchain-swiss-knife/ethereumClassic"
 	"github.com/krboktv/blockchain-swiss-knife/ripple"
 	t "github.com/krboktv/blockchain-swiss-knife/tether"
@@ -25,21 +24,22 @@ func init(){
 	fmt.Println("\n")
 	dash_()
 	fmt.Println("\n")
+	eth()
+	fmt.Println("\n")
 }
 
 func eth() {
-	privateKey, _ := ethereum.GenerateKey()
-	publicKey := ethereum.GetPublicKey(privateKey)
-	address := ethereum.GetAddress(privateKey)
-	balanceTest := ethereum.GetBalance("0x343295B49522CFc38aF517c58eBB78565C42Ed95")
+	swissKnife.Ethereum.GenerateAndSet()
+
+	balanceTest := swissKnife.Ethereum.GetBalance("0x343295B49522CFc38aF517c58eBB78565C42Ed95")
 
 	fmt.Println("---Ethereum---")
 	fmt.Print("Private Key: ")
-	fmt.Println(hex.EncodeToString(privateKey))
+	fmt.Println(swissKnife.Ethereum.PrivateKey)
 	fmt.Print("Public Key: ")
-	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Println(swissKnife.Ethereum.PublicKey)
 	fmt.Print("Address: ")
-	fmt.Println(hex.EncodeToString(address))
+	fmt.Println("0x" + swissKnife.Ethereum.Address)
 	fmt.Println("Account for balance test: 0x343295B49522CFc38aF517c58eBB78565C42Ed95")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)

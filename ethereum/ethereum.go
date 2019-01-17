@@ -8,26 +8,47 @@ import (
 	"strconv"
 	"sync"
 
+	"encoding/hex"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/krboktv/blockchain-swiss-knife/utils"
 	"github.com/onrik/ethrpc"
 )
 
-func GenerateKey() ([]byte, error) {
+type Ethereum struct {
+	PrivateKey string
+	PublicKey  string
+	Address    string
+}
+
+func (eth *Ethereum) GenerateKey() ([]byte, error) {
 	return utils.GenerateKeySecp256k1()
 }
 
-func GetPublicKey(key []byte) []byte {
+func (eth *Ethereum) GetPublicKey(key []byte) []byte {
 	return utils.GetPublicKeyUncompressedSecp256k1(key)
 }
 
-func GetAddress(key []byte) []byte {
-	pbk := GetPublicKey(key)
+func (eth *Ethereum) GetAddress(key []byte) []byte {
+	pbk := eth.GetPublicKey(key)
 	return utils.Keccak256(pbk[1:])[12:32]
 }
 
-func GetBalance(address string) (balanceFloat float64) {
+func (eth *Ethereum) GenerateAndSet() {
+	privateKey, err := eth.GenerateKey()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	publicKey := eth.GetPublicKey(privateKey)
+	address := eth.GetAddress(privateKey)
+
+	eth.PrivateKey = hex.EncodeToString(privateKey)
+	eth.PublicKey = hex.EncodeToString(publicKey)
+	eth.Address = hex.EncodeToString(address)
+}
+
+func (eth *Ethereum) GetBalance(address string) (balanceFloat float64) {
 
 	client, err := ethclient.Dial("https://mainnet.infura.io")
 	if err != nil {
@@ -84,7 +105,7 @@ func worker(wg *sync.WaitGroup, addr string, r *Data) {
 	r.Set(addr, ethBalance)
 }
 
-func GetBalanceForMultipleAdresses(addr []string) map[string]float64 {
+func (eth *Ethereum) GetBalanceForMultipleAdresses(addr []string) map[string]float64 {
 
 	r := New()
 	var wg sync.WaitGroup
