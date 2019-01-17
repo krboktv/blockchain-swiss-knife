@@ -1,8 +1,8 @@
 package main
 
 import (
-	st "../stellar"
-	"../zcash"
+	st "github.com/krboktv/blockchain-swiss-knife/stellar"
+	"github.com/krboktv/blockchain-swiss-knife/zcash"
 	"encoding/hex"
 	"fmt"
 	"github.com/krboktv/blockchain-swiss-knife/bitcoin"
