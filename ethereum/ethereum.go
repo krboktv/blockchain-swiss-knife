@@ -3,7 +3,6 @@ package ethereum
 import (
 	"context"
 	"fmt"
-	"log"
 	"math"
 	"strconv"
 	"sync"
@@ -52,7 +51,8 @@ func (eth *Ethereum) GetBalance(address string) (balanceFloat float64) {
 
 	client, err := ethclient.Dial("https://mainnet.infura.io")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+		return
 	}
 
 	ctx := context.Background()
@@ -61,7 +61,8 @@ func (eth *Ethereum) GetBalance(address string) (balanceFloat float64) {
 
 	balance, err := client.BalanceAt(ctx, account, nil)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+		return
 	}
 	ethBalance, _ := strconv.ParseFloat(balance.String(), 64)
 
@@ -99,6 +100,7 @@ func worker(wg *sync.WaitGroup, addr string, r *Data) {
 	balance, err := ethClient.EthGetBalance(addr, "latest")
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 	floatBalance, _ := strconv.ParseFloat(balance.String(), 64)
 	ethBalance := floatBalance / math.Pow(10, 18)

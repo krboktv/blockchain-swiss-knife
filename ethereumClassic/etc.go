@@ -50,6 +50,7 @@ func (etc *EthereumClassic) GetBalance(address string) (balanceFloat float64) {
 	client, err := ethclient.Dial("https://ethereumclassic.network")
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
 	ctx := context.Background()
@@ -59,6 +60,7 @@ func (etc *EthereumClassic) GetBalance(address string) (balanceFloat float64) {
 	balance, err := client.BalanceAt(ctx, account, nil)
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 	ethBalance, _ := strconv.ParseFloat(balance.String(), 64)
 

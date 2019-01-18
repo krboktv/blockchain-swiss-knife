@@ -211,7 +211,7 @@ func btg() {
 
 func tether() {
 	swissKnife.Tether.GenerateAndSet()
-	balance := swissKnife.Tether.GetBalance("3NrEXrB9qAxXYfRt6jKtBD8QzoU2qtNWDR")
+	balanceTest := swissKnife.Tether.GetBalance("3NrEXrB9qAxXYfRt6jKtBD8QzoU2qtNWDR")
 
 	fmt.Println("---Tether---")
 	fmt.Print("Private Key: ")
@@ -222,12 +222,14 @@ func tether() {
 	fmt.Println(swissKnife.Tether.Address)
 	fmt.Println("Account for balance test: 3NrEXrB9qAxXYfRt6jKtBD8QzoU2qtNWDR")
 	fmt.Print("Balance:")
-	fmt.Println(balance)
+	fmt.Println(balanceTest)
 	fmt.Println("---Tether---")
 }
 
 func _zcash() {
+
 	swissKnife.ZCash.GenerateAndSet()
+	balanceTest := swissKnife.ZCash.GetBalance("t3Vz22vK5z2LcKEdg16Yv4FFneEL1zg9ojd")
 
 	fmt.Println("---ZCash---")
 	fmt.Print("Private Key: ")
@@ -236,5 +238,8 @@ func _zcash() {
 	fmt.Println(swissKnife.ZCash.PublicKey)
 	fmt.Print("Address: ")
 	fmt.Println(swissKnife.ZCash.Address)
+	fmt.Println("Account for balance test: t3Vz22vK5z2LcKEdg16Yv4FFneEL1zg9ojd")
+	fmt.Print("Balance: ")
+	fmt.Println(balanceTest)
 	fmt.Println("---ZCash---")
 }

@@ -61,6 +61,7 @@ func (dash *Dash) GetBalance(address string) (balanceFloat float64) {
 	balance, err := req.Get("https://insight.dash.org/insight-api/addr/" + address + "/balance")
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
 	balanceFloat, _ = strconv.ParseFloat(balance.String(), 64)

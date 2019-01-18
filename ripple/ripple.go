@@ -215,6 +215,7 @@ func (xrp *Ripple) GetBalance(address string) (balanceFloat float64) {
 	balance, err := req.Get("https://data.ripple.com/v2/accounts/" + address + "/balances?currency=XRP")
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
 	var b RippleBalance
@@ -223,6 +224,7 @@ func (xrp *Ripple) GetBalance(address string) (balanceFloat float64) {
 	balanceFloat, err = strconv.ParseFloat(b.Balances[0].Value, 64)
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 	return
 }
