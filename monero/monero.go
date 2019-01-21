@@ -9,9 +9,7 @@ type Monero struct {
 	Address         string
 }
 
-var (
-	MainnetXMR = []byte{0x12}
-)
+var MainnetXMR = []byte{0x12}
 
 //func generateRandomSeed() ([]byte, error) {
 //	passphrase, err := generateRandomPassphrase()

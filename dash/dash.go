@@ -8,15 +8,13 @@ import (
 	"strconv"
 )
 
-var (
-	MainnetDash = []byte{0x4c}
-)
-
 type Dash struct {
 	PrivateKey string
 	PublicKey  string
 	Address    string
 }
+
+var MainnetDash = []byte{0x4c}
 
 func (dash *Dash) GenerateKey() ([]byte, error) {
 	return utils.GenerateKeySecp256k1()

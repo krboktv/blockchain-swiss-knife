@@ -7,15 +7,13 @@ import (
 	"github.com/krboktv/blockchain-swiss-knife/utils"
 )
 
-var (
-	MainnetZCash = []byte{0x1C, 0xB8}
-)
-
 type ZCash struct {
 	PrivateKey string
 	PublicKey  string
 	Address    string
 }
+
+var MainnetZCash = []byte{0x1C, 0xB8}
 
 func (zcash *ZCash) GenerateKey() ([]byte, error) {
 	return utils.GenerateKeySecp256k1()

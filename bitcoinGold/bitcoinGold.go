@@ -8,15 +8,13 @@ import (
 	"strconv"
 )
 
-var (
-	MainnetBTG = []byte{0x26}
-)
-
 type BitcoinGold struct {
 	PrivateKey string
 	PublicKey  string
 	Address    string
 }
+
+var MainnetBTG = []byte{0x26}
 
 func (btg *BitcoinGold) GenerateKey() ([]byte, error) {
 	return utils.GenerateKeySecp256k1()

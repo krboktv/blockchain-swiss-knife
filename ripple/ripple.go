@@ -17,6 +17,8 @@ type Ripple struct {
 	Address    string
 }
 
+var MainnetXRP = []byte{0x00}
+
 type RootAccount struct {
 	privateKey []byte
 }
@@ -132,11 +134,10 @@ func (xrp *Ripple) getAddressFromSeed(seed []byte) ([]byte, error) {
 }
 
 func (xrp *Ripple) GetAddressFromPrivateKey(key []byte) ([]byte, error) {
-	networkByte := []byte{0x00}
 	pbk := xrp.GetPublicKeyFromPrivateKey(key)
 	step1 := utils.SHA256(pbk)
 	step2 := utils.RIPEMD160(step1)
-	step3 := append(networkByte, step2...)
+	step3 := append(MainnetXRP, step2...)
 	step4 := utils.SHA256(step3)
 	step5 := utils.SHA256(step4)
 	step6 := step5[:4]
