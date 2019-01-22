@@ -7,11 +7,16 @@ import (
 	"strconv"
 	"sync"
 
+	"crypto/ecdsa"
 	"encoding/hex"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/krboktv/blockchain-swiss-knife/utils"
 	"github.com/onrik/ethrpc"
+	"math/big"
 )
 
 type Ethereum struct {
@@ -69,6 +74,90 @@ func (eth *Ethereum) GetBalance(address string) (balanceFloat float64) {
 	balanceFloat = ethBalance / math.Pow(10, 18)
 
 	return
+}
+
+func (eth *Ethereum) CreateRawTx(senderPrivateKey, recipient string, amount int64) (rawTxHex string) {
+
+	client, err := ethclient.Dial("https://mainnet.infura.io")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	privateKey, err := crypto.HexToECDSA(senderPrivateKey)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	publicKey := privateKey.Public()
+
+	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
+	if !ok {
+		fmt.Errorf("error casting public key to ECDSA")
+		return
+	}
+
+	fromAddress := crypto.PubkeyToAddress(*publicKeyECDSA)
+
+	nonce, err := client.PendingNonceAt(context.Background(), fromAddress)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	value := big.NewInt(amount) // in wei (1 eth)
+	gasLimit := uint64(21000)   // in units
+	gasPrice, err := client.SuggestGasPrice(context.Background())
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	toAddress := common.HexToAddress(recipient)
+	var data []byte
+	tx := types.NewTransaction(nonce, toAddress, value, gasLimit, gasPrice, data)
+
+	chainID, err := client.NetworkID(context.Background())
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	signedTx, err := types.SignTx(tx, types.NewEIP155Signer(chainID), privateKey)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	ts := types.Transactions{signedTx}
+	rawTxBytes := ts.GetRlp(0)
+	rawTxHex = hex.EncodeToString(rawTxBytes)
+	return
+}
+
+func (eth *Ethereum) SendRawTx(rawTx string) {
+
+	client, err := ethclient.Dial("https://testnet.infura.io")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	rawTxBytes, err := hex.DecodeString(rawTx)
+
+	tx := new(types.Transaction)
+
+	rlp.DecodeBytes(rawTxBytes, &tx)
+
+	err = client.SendTransaction(context.Background(), tx)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Printf("tx sent: %s", tx.Hash().Hex())
 }
 
 // Balance by addresses list

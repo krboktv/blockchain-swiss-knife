@@ -1,10 +1,10 @@
 package main
 
 import (
-	st "github.com/krboktv/blockchain-swiss-knife/stellar"
 	"encoding/hex"
 	"fmt"
 	. "github.com/krboktv/blockchain-swiss-knife/Knife"
+	st "github.com/krboktv/blockchain-swiss-knife/stellar"
 )
 
 var swissKnife Knife
@@ -13,7 +13,7 @@ func main() {
 	fmt.Println("To the moon!")
 }
 
-func init(){
+func init() {
 	btc()
 	fmt.Println("\n")
 	btg()
@@ -34,6 +34,7 @@ func init(){
 }
 
 func eth() {
+
 	swissKnife.Ethereum.GenerateAndSet()
 
 	balanceTest := swissKnife.Ethereum.GetBalance("0x343295B49522CFc38aF517c58eBB78565C42Ed95")
@@ -51,8 +52,10 @@ func eth() {
 	fmt.Println("---Ethereum---")
 }
 
-func etc(){
+func etc() {
+
 	swissKnife.EthereumClassic.GenerateAndSet()
+
 	balanceTest := swissKnife.EthereumClassic.GetBalance("0xDf7D7e053933b5cC24372f878c90E62dADAD5d42")
 
 	fmt.Println("---EthereumClassic---")
@@ -68,9 +71,10 @@ func etc(){
 	fmt.Println("---EthereumClassic---")
 }
 
-
 func btc() {
+
 	swissKnife.Bitcoin.GenerateAndSet()
+
 	balanceTest := swissKnife.Bitcoin.GetBalance("18bXSCSXiTD3DB3XEz851VpB4ZK49rkprT")
 
 	fmt.Println("---Bitcoin---")
@@ -87,7 +91,9 @@ func btc() {
 }
 
 func dash_() {
+
 	swissKnife.Dash.GenerateAndSet()
+
 	balanceTest := swissKnife.Dash.GetBalance("XkNPrBSJtrHZUvUqb3JF4g5rMB3uzaJfEL")
 
 	fmt.Println("---Dash---")
@@ -154,11 +160,9 @@ func stellar() {
 	address, _ := swissKnife.Stellar.GetAddress(seed)
 	addressFromPvk, _ := swissKnife.Stellar.GetAddressFromPrivateKey(pvk)
 
-
 	// second
 	swissKnife.Stellar.GenerateAndSet()
 	balanceTest := st.GetBalance("GAQV4K7OZJMR32NADB3D27DVBIPGDZHLYV3ZOPA57ZS4CCG2QQVUP2UX")
-
 
 	fmt.Println("---Stellar---")
 	fmt.Println("First: ")
@@ -210,7 +214,9 @@ func btg() {
 }
 
 func tether() {
+
 	swissKnife.Tether.GenerateAndSet()
+
 	balanceTest := swissKnife.Tether.GetBalance("3NrEXrB9qAxXYfRt6jKtBD8QzoU2qtNWDR")
 
 	fmt.Println("---Tether---")
@@ -229,6 +235,7 @@ func tether() {
 func _zcash() {
 
 	swissKnife.ZCash.GenerateAndSet()
+
 	balanceTest := swissKnife.ZCash.GetBalance("t3Vz22vK5z2LcKEdg16Yv4FFneEL1zg9ojd")
 
 	fmt.Println("---ZCash---")
