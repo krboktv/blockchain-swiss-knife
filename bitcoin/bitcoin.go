@@ -71,6 +71,20 @@ func (btc *Bitcoin) GenerateAndSet() {
 
 }
 
+func (btc *Bitcoin) GetBalance(address string) (balanceFloat float64) {
+	balance, err := req.Get("https://insight.bitpay.com/api/addr/" + address + "/balance")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	balanceFloat, _ = strconv.ParseFloat(balance.String(), 64)
+
+	balanceFloat *= 0.00000001 // satoshi to btc
+
+	return
+}
+
 func (btc *Bitcoin) CreateTransaction(secret string, destination string, amount int64, txHash string) (Transaction, error) {
 	var transaction Transaction
 	wif, err := btcutil.DecodeWIF(secret)
@@ -123,18 +137,4 @@ func (btc *Bitcoin) CreateTransaction(secret string, destination string, amount 
 	transaction.SourceAddress = sourceAddress.EncodeAddress()
 	transaction.DestinationAddress = destinationAddress.EncodeAddress()
 	return transaction, nil
-}
-
-func (btc *Bitcoin) GetBalance(address string) (balanceFloat float64) {
-	balance, err := req.Get("https://insight.bitpay.com/api/addr/" + address + "/balance")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	balanceFloat, _ = strconv.ParseFloat(balance.String(), 64)
-
-	balanceFloat *= 0.00000001 // satoshi to btc
-
-	return
 }

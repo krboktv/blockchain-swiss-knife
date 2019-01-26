@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/btcsuite/btcd/btcec"
+	"c"
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/btcsuite/btcutil"
 	"github.com/btcsuite/btcutil/base58"
