@@ -11,6 +11,8 @@ import (
 
 var swissKnife Knife
 
+
+// ETH and ETC
 func TestETH(t *testing.T) {
 
 	// is valid private key
@@ -41,6 +43,7 @@ func TestETH(t *testing.T) {
 
 }
 
+// BTC, Tether, ZCash, Dash, BTG
 func TestBTC(t *testing.T){
 
 	// is valid private key
@@ -72,3 +75,4 @@ func TestBTC(t *testing.T){
 
 	assert.Equal(t, reAddress.MatchString(string(address)) ,true)
 }
+
