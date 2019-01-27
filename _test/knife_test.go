@@ -3,10 +3,10 @@ package test
 import (
 	"testing"
 	. "github.com/krboktv/blockchain-swiss-knife/Knife"
-	"fmt"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/magiconair/properties/assert"
 	"regexp"
+	"log"
 )
 
 var swissKnife Knife
@@ -20,8 +20,7 @@ func TestETH(t *testing.T) {
 
 	privateKey, err := swissKnife.Ethereum.GenerateKey()
 	if err != nil{
-		fmt.Println(err)
-		return
+		log.Fatal(err)
 	}
 
 	assert.Equal(t, rePrivate.MatchString(hexutil.Encode(privateKey)), true)
@@ -51,8 +50,7 @@ func TestBTC(t *testing.T){
 
 	privateKey, err := swissKnife.Bitcoin.GenerateKey()
 	if err != nil{
-		fmt.Println(err)
-		return
+		log.Fatal(err)
 	}
 
 	assert.Equal(t, rePrivate.MatchString(hexutil.Encode(privateKey)) ,true)
@@ -69,10 +67,44 @@ func TestBTC(t *testing.T){
 
 	address, err := swissKnife.Bitcoin.GetAddress(privateKey)
 	if err != nil{
-		fmt.Println(err)
-		return
+		log.Fatal(err)
 	}
 
 	assert.Equal(t, reAddress.MatchString(string(address)) ,true)
+}
+
+func TestStellar(t *testing.T){
+
+	// is valid seed
+	reSeed := regexp.MustCompile("^[0-9-A-Z]{56}$")
+
+	seed,err := swissKnife.Stellar.GenerateKey()
+	if err != nil{
+		log.Fatal(err)
+	}
+
+	assert.Equal(t, reSeed.MatchString(string(seed)),true)
+
+	// is valid address
+	reAddress := regexp.MustCompile("^[0-9-A-Z]{56}$")
+
+	address,err := swissKnife.Stellar.GetAddress(seed)
+	if err != nil{
+		log.Fatal(err)
+	}
+
+	assert.Equal(t, reAddress.MatchString(string(address)),true)
+
+	// get address func
+	PublicKey := "GDTCMJ4FJNY2SOEJRXUMAR262L7FQKJP5MQHMZVSDGPUN6U7JEORVPQP"
+	SecretKey := []byte(`SAK5JNDTZ3HZAXZSQFMYYU5OC3JA7PMOITNEGBJAV635BL7B7R2OQAC5`)
+
+	address,err = swissKnife.Stellar.GetAddress(SecretKey)
+	if err != nil{
+		log.Fatal(err)
+	}
+
+	assert.Equal(t, string(address), PublicKey)
+
 }
 
