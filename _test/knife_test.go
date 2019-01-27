@@ -41,3 +41,34 @@ func TestETH(t *testing.T) {
 
 }
 
+func TestBTC(t *testing.T){
+
+	// is valid private key
+	rePrivate := regexp.MustCompile("^0x[0-9a-fA-F]{64}$")
+
+	privateKey, err := swissKnife.Bitcoin.GenerateKey()
+	if err != nil{
+		fmt.Println(err)
+		return
+	}
+
+	assert.Equal(t, rePrivate.MatchString(hexutil.Encode(privateKey)) ,true)
+
+	// is valid public key
+	rePublic := regexp.MustCompile("^[0-9a-fA-F]{66}$")
+
+	publicKey := swissKnife.Bitcoin.GetPublicKey(privateKey)
+
+	assert.Equal(t, rePublic.MatchString(hexutil.Encode(publicKey)[2:]) ,true)
+
+	// is valid address
+	reAddress := regexp.MustCompile("^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$")
+
+	address, err := swissKnife.Bitcoin.GetAddress(privateKey)
+	if err != nil{
+		fmt.Println(err)
+		return
+	}
+
+	assert.Equal(t, reAddress.MatchString(string(address)) ,true)
+}
