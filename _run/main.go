@@ -111,38 +111,33 @@ func dash_() {
 
 func xrp() {
 
-	balanceTest := swissKnife.Ripple.GetBalance("rUjAoB9tXmt5v1DifGnfbDT6WRTX67PXvq")
-
-	seed := []byte("sspmdvhjCgmasqzg9a6HW6rvYLEoD")
-
-	seedFromExistingPassphrase, _ := swissKnife.Ripple.GenerateKeyFromPassphrase([]byte("masterpassphrase"))
-
-	childAccount, _ := swissKnife.Ripple.GetChildAccount(seedFromExistingPassphrase)
-
-	publicKey, _ := swissKnife.Ripple.GetPublicKey(seedFromExistingPassphrase)
+	swissKnife.Ripple.GenerateAndSet("masterpassphrase")
 
 	pvk, _ := hex.DecodeString("1ACAAEDECE405B2A958212629E16F2EB46B153EEE94CDD350FDEFF52795525B7")
 
 	publicKeyFromPrivateKey := swissKnife.Ripple.GetPublicKeyFromPrivateKey(pvk)
 
-	address, _ := swissKnife.Ripple.GetAddress(seed)
-
 	addressFromPrivateKey, _ := swissKnife.Ripple.GetAddressFromPrivateKey(pvk)
 
+	balanceTest := swissKnife.Ripple.GetBalance("rUjAoB9tXmt5v1DifGnfbDT6WRTX67PXvq")
+
 	fmt.Println("---Ripple---")
-	fmt.Print("Seed from existing passphrase: ")
-	fmt.Println(string(seedFromExistingPassphrase))
-	fmt.Print("PrivateKey From Seed: ")
-	fmt.Println(hex.EncodeToString(childAccount.GetPrivateKey()))
-	fmt.Print("Public Key: ")
-	fmt.Println(hex.EncodeToString(publicKey))
+	fmt.Println("- - - - - ")
+	fmt.Println("Account from passphrase: ")
+	fmt.Print("Passphrase:")
+	fmt.Println(swissKnife.Ripple.Passphrase)
+	fmt.Print("Secret:")
+	fmt.Println(swissKnife.Ripple.Seed)
+	fmt.Print("Address:")
+	fmt.Println(swissKnife.Ripple.Address)
+	fmt.Println("- - - - - ")
 	fmt.Print("Public Key From Private Key: ")
 	fmt.Println(hex.EncodeToString(publicKeyFromPrivateKey))
-	fmt.Print("Address From Seed: ")
-	fmt.Println(string(address))
-	fmt.Print("Address From Private Key: ")
+	fmt.Println("Private key - 1ACAAEDECE405B2A958212629E16F2EB46B153EEE94CDD350FDEFF52795525B7")
+	fmt.Print("Publick key from private key: ")
+	fmt.Println(hex.EncodeToString(publicKeyFromPrivateKey))
+	fmt.Print("Address from private key: ")
 	fmt.Println(string(addressFromPrivateKey))
-	fmt.Println("Account for balance test: rUjAoB9tXmt5v1DifGnfbDT6WRTX67PXvq")
 	fmt.Print("Test Balance: ")
 	fmt.Println(balanceTest)
 	fmt.Println("---Ripple---")

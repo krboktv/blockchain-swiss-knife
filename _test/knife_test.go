@@ -96,15 +96,46 @@ func TestStellar(t *testing.T){
 	assert.Equal(t, reAddress.MatchString(string(address)),true)
 
 	// get address func
-	PublicKey := "GDTCMJ4FJNY2SOEJRXUMAR262L7FQKJP5MQHMZVSDGPUN6U7JEORVPQP"
-	SecretKey := []byte(`SAK5JNDTZ3HZAXZSQFMYYU5OC3JA7PMOITNEGBJAV635BL7B7R2OQAC5`)
+	publicKey := "GDTCMJ4FJNY2SOEJRXUMAR262L7FQKJP5MQHMZVSDGPUN6U7JEORVPQP"
+	secretKey := []byte(`SAK5JNDTZ3HZAXZSQFMYYU5OC3JA7PMOITNEGBJAV635BL7B7R2OQAC5`)
 
-	address,err = swissKnife.Stellar.GetAddress(SecretKey)
+	address,err = swissKnife.Stellar.GetAddress(secretKey)
 	if err != nil{
 		log.Fatal(err)
 	}
 
-	assert.Equal(t, string(address), PublicKey)
+	assert.Equal(t, string(address), publicKey)
 
+}
+
+
+func TestRipple(t *testing.T){
+
+	// is valid key
+	reSecret := regexp.MustCompile("^s[a-zA-Z-0-9]{28}$")
+
+	seed, _ := swissKnife.Ripple.GenerateKeyFromPassphrase([]byte("999999999"))
+
+	assert.Equal(t, reSecret.MatchString(string(seed)),true)
+
+	// is valid address
+	reAddress := regexp.MustCompile("^r[a-zA-Z-0-9]{24,34}$")
+
+	address, _ := swissKnife.Ripple.GetAddress(seed)
+
+	assert.Equal(t, reAddress.MatchString(string(address)),true)
+
+	// get secret and address
+
+	// passphrase - masterpassphrase
+	sec := "snoPBrXtMeMyMHUVTgbuqAfg1SUTb"
+	addr  := "rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh"
+
+	seedFromExistingPassphrase, _ := swissKnife.Ripple.GenerateKeyFromPassphrase([]byte("masterpassphrase"))
+
+	addressFromSeed, _ := swissKnife.Ripple.GetAddress(seedFromExistingPassphrase)
+
+	assert.Equal(t, string(seedFromExistingPassphrase), sec)
+	assert.Equal(t, string(addressFromSeed), addr)
 }
 
