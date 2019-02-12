@@ -13,9 +13,7 @@ type Tether struct {
 	Address    string
 }
 
-var (
-	MainnetTether = []byte{0x00}
-)
+var MainnetTether = []byte{0x00}
 
 func (tether *Tether) GenerateKey() ([]byte, error) {
 	return utils.GenerateKeySecp256k1()

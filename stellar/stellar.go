@@ -198,6 +198,7 @@ func GetBalance(address string) (balanceFloat float64) {
 	balance, err := req.Get("https://horizon.stellar.org/accounts/" + address)
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
 	balance.ToJSON(&b)
@@ -206,7 +207,6 @@ func GetBalance(address string) (balanceFloat float64) {
 
 	for _, j := range b.Balances {
 		if j.Asset_type == "native" {
-
 			stellarBalanceString = j.Balance
 		}
 	}
@@ -214,6 +214,7 @@ func GetBalance(address string) (balanceFloat float64) {
 	balanceFloat, err = strconv.ParseFloat(stellarBalanceString, 64)
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
 	return

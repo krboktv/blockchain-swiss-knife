@@ -8,15 +8,13 @@ import (
 	"strconv"
 )
 
-var (
-	MainnetBTG = []byte{0x26}
-)
-
 type BitcoinGold struct {
 	PrivateKey string
 	PublicKey  string
 	Address    string
 }
+
+var MainnetBTG = []byte{0x26}
 
 func (btg *BitcoinGold) GenerateKey() ([]byte, error) {
 	return utils.GenerateKeySecp256k1()
@@ -61,6 +59,7 @@ func (btg *BitcoinGold) GetBalance(address string) (balanceFloat float64) {
 	balance, err := req.Get("https://explorer.bitcoingold.org/insight-api/addr/" + address + "/balance")
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
 	balanceFloat, _ = strconv.ParseFloat(balance.String(), 64)

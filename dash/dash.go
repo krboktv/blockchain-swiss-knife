@@ -8,15 +8,13 @@ import (
 	"strconv"
 )
 
-var (
-	MainnetDash = []byte{0x4c}
-)
-
 type Dash struct {
 	PrivateKey string
 	PublicKey  string
 	Address    string
 }
+
+var MainnetDash = []byte{0x4c}
 
 func (dash *Dash) GenerateKey() ([]byte, error) {
 	return utils.GenerateKeySecp256k1()
@@ -61,6 +59,7 @@ func (dash *Dash) GetBalance(address string) (balanceFloat float64) {
 	balance, err := req.Get("https://insight.dash.org/insight-api/addr/" + address + "/balance")
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
 	balanceFloat, _ = strconv.ParseFloat(balance.String(), 64)

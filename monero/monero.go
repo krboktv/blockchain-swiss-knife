@@ -14,9 +14,7 @@ type Monero struct {
 	Address         string
 }
 
-var (
-	MainnetXMR = []byte{0x12}
-)
+var MainnetXMR = []byte{0x12}
 
 func (monero *Monero) GenerateRandomSeed() string {
 	return utils.GenerateRandomMnemonic(utils.DictionaryMonero,25)

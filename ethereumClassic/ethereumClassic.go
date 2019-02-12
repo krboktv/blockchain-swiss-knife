@@ -1,11 +1,10 @@
-package ethereum
+package ethereumClassic
 
 import (
 	"context"
 	"fmt"
 	"math"
 	"strconv"
-	"sync"
 
 	"crypto/ecdsa"
 	"encoding/hex"
@@ -15,46 +14,45 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/krboktv/blockchain-swiss-knife/utils"
-	"github.com/onrik/ethrpc"
 	"math/big"
 )
 
-type Ethereum struct {
+type EthereumClassic struct {
 	PrivateKey string
 	PublicKey  string
 	Address    string
 }
 
-func (eth *Ethereum) GenerateKey() ([]byte, error) {
+func (etc *EthereumClassic) GenerateKey() ([]byte, error) {
 	return utils.GenerateKeySecp256k1()
 }
 
-func (eth *Ethereum) GetPublicKey(key []byte) []byte {
+func (etc *EthereumClassic) GetPublicKey(key []byte) []byte {
 	return utils.GetPublicKeyUncompressedSecp256k1(key)
 }
 
-func (eth *Ethereum) GetAddress(key []byte) []byte {
-	pbk := eth.GetPublicKey(key)
+func (etc *EthereumClassic) GetAddress(key []byte) []byte {
+	pbk := etc.GetPublicKey(key)
 	return utils.Keccak256(pbk[1:])[12:32]
 }
 
-func (eth *Ethereum) GenerateAndSet() {
-	privateKey, err := eth.GenerateKey()
+func (etc *EthereumClassic) GenerateAndSet() {
+	privateKey, err := etc.GenerateKey()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	publicKey := eth.GetPublicKey(privateKey)
-	address := eth.GetAddress(privateKey)
+	publicKey := etc.GetPublicKey(privateKey)
+	address := etc.GetAddress(privateKey)
 
-	eth.PrivateKey = hex.EncodeToString(privateKey)
-	eth.PublicKey = hex.EncodeToString(publicKey)
-	eth.Address = "0x" + hex.EncodeToString(address)
+	etc.PrivateKey = hex.EncodeToString(privateKey)
+	etc.PublicKey = hex.EncodeToString(publicKey)
+	etc.Address = "0x" + hex.EncodeToString(address)
 }
 
-func (eth *Ethereum) GetBalance(address string) (balanceFloat float64) {
+func (etc *EthereumClassic) GetBalance(address string) (balanceFloat float64) {
 
-	client, err := ethclient.Dial("https://mainnet.infura.io")
+	client, err := ethclient.Dial("https://ethereumclassic.network")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -76,9 +74,9 @@ func (eth *Ethereum) GetBalance(address string) (balanceFloat float64) {
 	return
 }
 
-func (eth *Ethereum) CreateRawTx(senderPrivateKey, recipient string, amount int64) (rawTxHex string) {
+func (eth *EthereumClassic) CreateRawTx(senderPrivateKey, recipient string, amount int64) (rawTxHex string) {
 
-	client, err := ethclient.Dial("https://mainnet.infura.io")
+	client, err := ethclient.Dial("https://ethereumclassic.network")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -136,9 +134,9 @@ func (eth *Ethereum) CreateRawTx(senderPrivateKey, recipient string, amount int6
 	return
 }
 
-func (eth *Ethereum) SendRawTx(rawTx string) {
+func (eth *EthereumClassic) SendRawTx(rawTx string) {
 
-	client, err := ethclient.Dial("https://testnet.infura.io")
+	client, err := ethclient.Dial("https://ethereumclassic.network")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -158,54 +156,4 @@ func (eth *Ethereum) SendRawTx(rawTx string) {
 	}
 
 	fmt.Printf("tx sent: %s", tx.Hash().Hex())
-}
-
-// Balance by addresses list
-
-type Data struct {
-	sync.Mutex
-	balances map[string]float64
-}
-
-func New() *Data {
-	return &Data{
-		balances: make(map[string]float64),
-	}
-}
-
-func (ds *Data) set(key string, value float64) {
-	ds.balances[key] = value
-}
-
-func (ds *Data) Set(key string, value float64) {
-	ds.Lock()
-	defer ds.Unlock()
-	ds.set(key, value)
-}
-
-func worker(wg *sync.WaitGroup, addr string, r *Data) {
-	defer wg.Done()
-	ethClient := ethrpc.New("https://mainnet.infura.io")
-	balance, err := ethClient.EthGetBalance(addr, "latest")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	floatBalance, _ := strconv.ParseFloat(balance.String(), 64)
-	ethBalance := floatBalance / math.Pow(10, 18)
-	r.Set(addr, ethBalance)
-}
-
-func (eth *Ethereum) GetBalanceForMultipleAdresses(addr []string) map[string]float64 {
-
-	r := New()
-	var wg sync.WaitGroup
-
-	for i := 0; i < len(addr); i++ {
-		wg.Add(1)
-		go worker(&wg, addr[i], r)
-	}
-	wg.Wait()
-
-	return r.balances
 }

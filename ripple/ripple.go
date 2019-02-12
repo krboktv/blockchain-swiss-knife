@@ -12,10 +12,12 @@ import (
 )
 
 type Ripple struct {
-	PrivateKey string
-	PublicKey  string
+	Passphrase string
+	Seed       string
 	Address    string
 }
+
+var MainnetXRP = []byte{0x00}
 
 type RootAccount struct {
 	privateKey []byte
@@ -132,11 +134,10 @@ func (xrp *Ripple) getAddressFromSeed(seed []byte) ([]byte, error) {
 }
 
 func (xrp *Ripple) GetAddressFromPrivateKey(key []byte) ([]byte, error) {
-	networkByte := []byte{0x00}
 	pbk := xrp.GetPublicKeyFromPrivateKey(key)
 	step1 := utils.SHA256(pbk)
 	step2 := utils.RIPEMD160(step1)
-	step3 := append(networkByte, step2...)
+	step3 := append(MainnetXRP, step2...)
 	step4 := utils.SHA256(step3)
 	step5 := utils.SHA256(step4)
 	step6 := step5[:4]
@@ -177,31 +178,25 @@ func encodeSeedToBase58Check(seed []byte) ([]byte, error) {
 	return step4, err
 }
 
-//func(xrp *Ripple) SetPassphrase(passphrase string){
-//	xrp.Passphrase = []byte(passphrase)
-//}
-//
-//func(xrp *Ripple) GetPassphrase() string {
-//	return string(xrp.Passphrase)
-//}
-
 // Generate acc
-// todo: add GenerateAndSet
+func (xrp *Ripple) GenerateAndSet(passphrase string) {
+	seed, err := xrp.GenerateKeyFromPassphrase([]byte(passphrase))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
-//func (xrp *Ripple) GenerateAndSet(passphrase string) {
-//	seedFromExistingPassphrase, err := xrp.GenerateKeyFromPassphrase([]byte(passphrase))
-//	if err != nil{
-//		fmt.Println(err)
-//		return
-//	}
-//
-//	publicKey,err := xrp.GetPublicKey(seedFromExistingPassphrase)
-//	if err != nil{
-//		fmt.Println(err)
-//		return
-//	}
-//
-//}
+	address, err := xrp.GetAddress(seed)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	xrp.Passphrase = passphrase
+	xrp.Address = string(address)
+	xrp.Seed = string(seed)
+
+}
 
 func (xrp *Ripple) GetBalance(address string) (balanceFloat float64) {
 
@@ -215,6 +210,7 @@ func (xrp *Ripple) GetBalance(address string) (balanceFloat float64) {
 	balance, err := req.Get("https://data.ripple.com/v2/accounts/" + address + "/balances?currency=XRP")
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
 	var b RippleBalance
@@ -223,6 +219,7 @@ func (xrp *Ripple) GetBalance(address string) (balanceFloat float64) {
 	balanceFloat, err = strconv.ParseFloat(b.Balances[0].Value, 64)
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 	return
 }

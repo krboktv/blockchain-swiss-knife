@@ -3,11 +3,8 @@ package zcash
 import (
 	"encoding/hex"
 	"fmt"
+	"github.com/imroc/req"
 	"github.com/krboktv/blockchain-swiss-knife/utils"
-)
-
-var (
-	MainnetZCash = []byte{0x1C, 0xB8}
 )
 
 type ZCash struct {
@@ -15,6 +12,8 @@ type ZCash struct {
 	PublicKey  string
 	Address    string
 }
+
+var MainnetZCash = []byte{0x1C, 0xB8}
 
 func (zcash *ZCash) GenerateKey() ([]byte, error) {
 	return utils.GenerateKeySecp256k1()
@@ -48,4 +47,32 @@ func (zcash *ZCash) GenerateAndSet() {
 	zcash.PrivateKey = hex.EncodeToString(privateKey)
 	zcash.PublicKey = hex.EncodeToString(publicKey)
 	zcash.Address = string(address)
+}
+
+func (zcash *ZCash) GetBalance(address string) (balanceFloat float64) {
+	//
+	type ZCashBalance struct {
+		Address    string  `json:"address"`
+		Balance    float64 `json:"balance"`
+		FirstSeen  int     `json:"firstSeen"`
+		LastSeen   int     `json:"lastSeen"`
+		SentCount  int     `json:"sentCount"`
+		RecvCount  int     `json:"recvCount"`
+		MinedCount int     `json:"minedCount"`
+		TotalSent  float64 `json:"totalSent"`
+		TotalRecv  float64 `json:"totalRecv"`
+	}
+
+	var balance ZCashBalance
+
+	resp, err := req.Get("https://api.zcha.in/v2/mainnet/accounts/" + address)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	resp.ToJSON(&balance)
+
+	balanceFloat = balance.Balance
+
+	return
 }
