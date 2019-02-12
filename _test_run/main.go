@@ -1,10 +1,10 @@
 package main
 
 import (
-	st "github.com/krboktv/blockchain-swiss-knife/stellar"
 	"encoding/hex"
 	"fmt"
 	. "github.com/krboktv/blockchain-swiss-knife/Knife"
+	st "github.com/krboktv/blockchain-swiss-knife/stellar"
 )
 
 var swissKnife Knife

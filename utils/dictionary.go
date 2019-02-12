@@ -1,6 +1,11 @@
 package utils
 
-var Dictionary = []string{
+import (
+	"math/rand"
+	"time"
+)
+
+var DictionaryMonero = []string{
 	"abbey",
 	"abducts",
 	"ability",
@@ -1627,4 +1632,29 @@ var Dictionary = []string{
 	"zombie",
 	"zones",
 	"zoom",
+}
+
+func GenerateRandomMnemonic(dictionary []string, countOfWords int) string {
+	seed := ""
+	for i := 0; i < countOfWords; i++ {
+		ri := randomInt(0, len(dictionary))
+		seed += dictionary[ri] + " "
+	}
+	return seed
+}
+
+func randomInt(min int, max int) int {
+	rand.Seed(time.Now().UnixNano())
+	return min + rand.Intn(max-min)
+}
+
+func GenerateRandomBytes(n int) ([]byte, error) {
+	b := make([]byte, n)
+	_, err := rand.Read(b)
+	// Note that err == nil only if we read len(b) bytes.
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
 }
